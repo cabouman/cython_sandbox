@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 import svmbir
 
+import os
+os.chdir("/Users/bouman/PycharmProjects/Data/demo-data")
 
 sino = np.load('data/sinodata.npy')
 weight = np.load('data/weightdata.npy')
