@@ -1,0 +1,6 @@
+*.DS_Store
+*.o
+*.pyc
+__pycache__
+sftp-config.json
+.idea
