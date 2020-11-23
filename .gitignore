@@ -4,3 +4,4 @@
 __pycache__
 sftp-config.json
 .idea
+cython-sandbox/matrices/bin/main
