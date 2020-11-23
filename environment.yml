@@ -1,4 +1,4 @@
-name: svmbir
+name: cython-sandbox
 dependencies:
   - python>=3.6
   - numpy
