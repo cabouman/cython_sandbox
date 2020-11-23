@@ -1,0 +1,5 @@
+name: svmbir
+dependencies:
+  - python>=3.6
+  - numpy
+  - Cython
