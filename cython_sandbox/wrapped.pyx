@@ -45,7 +45,6 @@ def py_matrix_multiplication(np.ndarray[np.float_t,ndim=2,mode='c'] py_a, np.nda
         return mat2
 
     finally:
-        print("a")
         free(A.mat)
         free(B.mat)
         free(C.mat)
