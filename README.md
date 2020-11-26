@@ -38,4 +38,4 @@ After successfully installing the packages, you can test the package using
 
 ``python demo/demo.py``
 
-This calculate two matrixs multiplication using c library function.
+This calculate two matrices multiplication using c library function.
