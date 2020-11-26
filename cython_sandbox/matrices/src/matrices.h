@@ -11,5 +11,6 @@ struct Amatrix
 };
 
 void matrix_multiplication(struct Amatrix *A, struct Amatrix *B , struct Amatrix *C);
-
+void free_matrix(struct Amatrix *A);
+void malloc_matrix(struct Amatrix *A);
 #endif

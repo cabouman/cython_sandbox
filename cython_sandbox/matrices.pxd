@@ -17,3 +17,6 @@ cdef extern from "matrices/src/matrices.h":
             Amatrix *A,
             Amatrix *B ,
             Amatrix *C);
+
+    void free_matrix( Amatrix *A);
+    void malloc_matrix( Amatrix *A);

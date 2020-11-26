@@ -5,6 +5,16 @@
 #include "allocate.h"
 #include "matrices.h"
 
+void malloc_matrix(struct Amatrix *A)
+{
+    A->mat=(float **)multialloc(sizeof(float), 2, A->NRows,A->NCols);
+}
+
+void free_matrix(struct Amatrix *A)
+{
+free_img(A->mat);
+}
+
 void matrix_multiplication(struct Amatrix *A, struct Amatrix *B , struct Amatrix *C)
 {
     if (A->NCols != B->NRows)
@@ -26,6 +36,5 @@ void matrix_multiplication(struct Amatrix *A, struct Amatrix *B , struct Amatrix
                 C->mat[i][j]+=A->mat[i][k]*B->mat[k][j];
         }
 
-
-
 }
+

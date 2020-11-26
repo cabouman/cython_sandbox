@@ -8,8 +8,8 @@ int main(int argc, char **argv)
 
     struct Amatrix A, B, C;
 
-    A.NRows = 3;
-    A.NCols = 4;
+    A.NRows = 130;
+    A.NCols = 240;
 
     A.mat = (float **)multialloc(sizeof(float), 2, A.NRows,A.NCols);
     printf("A Matrix\n");
@@ -24,8 +24,8 @@ int main(int argc, char **argv)
         }
 
     printf("B Matrix\n");
-    B.NRows = 4;
-    B.NCols = 5;
+    B.NRows = 240;
+    B.NCols = 150;
     B.mat = (float **)multialloc(sizeof(float), 2, B.NRows,B.NCols);    
 
     for (i = 0; i < B.NRows ; i++)
