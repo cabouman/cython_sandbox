@@ -1,5 +1,5 @@
 # Cython sandbox
-This is a sandbox for people to use for cython implementation. 
+This is a sandbox for people to use for cython implementation experiment. 
 
 # Installation
 ## 1. Downloading
