@@ -27,8 +27,8 @@ PACKAGES = [SRC_DIR]
 ext_1 = Extension(SRC_DIR + ".wrapped",
                   [SRC_DIR + "/matrices/src/matrices.c",SRC_DIR + "/matrices/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                   libraries=[],
-                  include_dirs=[np.get_include()],
-                  extra_compile_args=["-fopenmp"])#,
+                  include_dirs=[np.get_include()])#,
+                  #extra_compile_args=["-fopenmp"])#,
                   #extra_link_args=["-fopenmp","-liomp5","-lpthread","-L/opt/intel/lib"])
 
 
