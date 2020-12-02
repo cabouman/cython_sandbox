@@ -5,6 +5,8 @@ This is a sandbox for people to use for cython implementation experiment.
 ## 1. Downloading
 ``git clone https://github.com/cabouman/Cython-Sandbox.git``
 
+``cd Cython-Sandbox``
+
 ## 2. Installing Python Package
 ### 1. (Optional) Create Conda Environment:
 It is recommended that you create a conda environment.
