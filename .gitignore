@@ -6,3 +6,6 @@ sftp-config.json
 .idea
 cython_sandbox/matrices/bin/main
 cython_sandbox/wrapped.c
+build/
+cython_sandbox.egg-info/
+dist/
