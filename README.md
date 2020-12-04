@@ -54,3 +54,8 @@ For clang compiler,
 
 ### 2. Run executable
 ``./cython_sandbox/matrices/bin/main``
+
+
+## More information
+
+For more information on cython, see [link](https://suzyahyah.github.io/cython/programming/2018/12/01/Gotchas-in-Cython.html)

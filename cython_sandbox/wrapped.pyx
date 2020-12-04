@@ -1,11 +1,17 @@
-cimport cython
 import numpy as np
-cimport numpy as np
-import ctypes
-from libc.stdlib cimport malloc
-cimport matrices
-from matrices cimport Amatrix, matrix_multiplication, free_matrix, malloc_matrix,matrix_multiplication_nomalloc
 import time
+
+# Import python package required to use cython
+import ctypes
+
+# Import cython package
+cimport cython
+
+# Import specialized cython support for numpy
+cimport numpy as np
+
+# This imports functions and data types from the matrices.pxd file in the same directory
+from matrices cimport Amatrix, matrix_multiplication, free_matrix, malloc_matrix, matrix_multiplication_nomalloc
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -20,20 +26,27 @@ def py_matrix_multiplication(np.ndarray[np.float32_t,ndim=2,mode='c'] py_a, np.n
         2D numpy array, the product of two matrices.
 
     '''
+
+    # cdef specifies the use of a cython variable typed as int, as opposed to a python variable
     cdef int i
     nrows_a,ncols_a = np.shape(py_a)
     nrows_b,ncols_b = np.shape(py_b)
 
-    # From numpy data type to c data type.
+    # Copies the python variable py_a to the cython variable temp_a
+    # The np.ascontiguousarray insures that data conforms to a row major (i.e., C) standards
+    # see: https://stackoverflow.com/questions/26998223/what-is-the-difference-between-contiguous-and-non-contiguous-arrays
     cdef np.ndarray[float, ndim=2, mode="c"] temp_a = np.ascontiguousarray(py_a, dtype = ctypes.c_float)
     cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype = ctypes.c_float)
 
-    # Declare and Initialize 2 matrices.
+    # Create a cython variable, A, with type Amatrix
+    # The set the values of the nrows_a and ncols_a
+    # Then use the imported C subroutine, malloc_matrix, to allocate the memory for the matrix A
     cdef Amatrix A
     A.NRows = nrows_a
     A.NCols = ncols_a
     malloc_matrix(&A)
 
+    # This is similar to A
     cdef Amatrix B
     B.NRows = nrows_b
     B.NCols = ncols_b
