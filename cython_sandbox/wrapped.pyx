@@ -73,7 +73,7 @@ def py_matrix_multiplication2(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c)
     Args:
         py_a(float): 2D numpy array, the left matrix A.
         py_b(float): 2D numpy array, the right matrix B.
-        py_b(float): 2D numpy array, the result matrix C.
+        py_c(float): 2D numpy array, the result matrix C.
 
 
     '''
