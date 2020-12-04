@@ -18,5 +18,10 @@ cdef extern from "matrices/src/matrices.h":
             Amatrix *B ,
             Amatrix *C);
 
+    void matrix_multiplication_nomalloc(
+            Amatrix *A,
+            Amatrix *B ,
+            Amatrix *C);
+
     void free_matrix( Amatrix *A);
     void malloc_matrix( Amatrix *A);
