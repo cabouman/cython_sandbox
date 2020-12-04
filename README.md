@@ -26,11 +26,13 @@ In order to install the ``cython-sandbox`` package into your ``cython-sandbox`` 
 
 For gcc compiler,
 
-``export CC=gcc; python setup.py install; unset CC``
+``CC=gcc python setup.py install``
 
 For clang compiler,
 
-``export CC=clang; python setup.py install; unset CC``
+``CC=clang python setup.py install``
+
+The install command sets the ``CC`` environment variable only for the duration of the installation without modifying existing environment variables.
 
 You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython-sandbox`` environment.
 Now you will be able to use the ``cython-sandbox`` python commands from any directory by running the python command ``import cython-sandbox``.
