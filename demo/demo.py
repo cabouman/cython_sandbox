@@ -26,7 +26,7 @@ if __name__ == '__main__':
     print("cython finished time: %f s\n" % (t1_end - t1_start))
 
     # Start a timer and compute using cython
-    print("Cython method 1")
+    print("Cython method 2")
     C2 = np.zeros((A.shape[0], B.shape[1])).astype(np.float32)
     t2_start = time.time()
     py_matrix_multiplication2(A, B, C2)
