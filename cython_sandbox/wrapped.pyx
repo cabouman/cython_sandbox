@@ -82,6 +82,9 @@ def py_matrix_multiplication2(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c)
     nrows_b,ncols_b = np.shape(py_b)
     nrows_c,ncols_c = np.shape(py_c)
 
+    # Make sure the input array are contiguous arrays.
+    cdef np.ndarray[float, ndim=2, mode="c"] temp_a = np.ascontiguousarray(py_a, dtype = ctypes.c_float)
+    cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype = ctypes.c_float)
     # Declare and Initialize 3 matrices.
     cdef Amatrix A
     A.NRows = nrows_a
@@ -103,9 +106,9 @@ def py_matrix_multiplication2(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c)
 
     # Link Matrix pointers to the address of the first element of each row.
     for i in range(nrows_a):
-        A.mat[i] = &py_a[i, 0]
+        A.mat[i] = &temp_a[i, 0]
     for i in range(nrows_b):
-        B.mat[i] = &py_b[i, 0]
+        B.mat[i] = &temp_b[i, 0]
     for i in range(nrows_a):
         C.mat[i] = &py_c[i, 0]
 
