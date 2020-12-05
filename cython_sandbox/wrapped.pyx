@@ -60,3 +60,6 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c):
         B.mat[i] = &temp_b[i, 0]
     for i in range(nrows_a):
         C.mat[i] = &py_c[i, 0]
+
+    # Multiply matrices together using cython subroutine
+    matrix_multiplication_nomalloc(&A, &B, &C)
