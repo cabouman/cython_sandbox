@@ -6,13 +6,13 @@ from numpy cimport int32_t, float_t, double_t
 
 
 cdef extern from "matrices/src/matrices.h":
-    # Structure
+    # Define cython data structure
     struct Amatrix:
         int NRows;
         int NCols;
         float **mat;
     
-    # Functions
+    # Define cython functions
     void matrix_multiplication(
             Amatrix *A,
             Amatrix *B ,
@@ -23,5 +23,5 @@ cdef extern from "matrices/src/matrices.h":
             Amatrix *B ,
             Amatrix *C);
 
-    void free_matrix( Amatrix *A);
-    void malloc_matrix( Amatrix *A);
+    void malloc_matrix(Amatrix *A);
+    void free_matrix(Amatrix *A);
