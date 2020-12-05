@@ -1,12 +1,12 @@
 import numpy as np
 
-import ctypes           # Import python package required to use cython
-cimport cython          # Import cython package
-cimport numpy as np     # Import specialized cython support for numpy
-from libc.stdlib cimport malloc,free
+import ctypes                             # Import python package required to use cython
+cimport cython                            # Import cython package
+cimport numpy as np                       # Import specialized cython support for numpy
+from libc.stdlib cimport malloc, free      # Import C provided the functions for dynamic memory allocation
 
 # This imports functions and data types from the matrices.pxd file in the same directory
-from matrices cimport Amatrix, free_matrix, malloc_matrix, matrix_multiplication
+from matrices cimport Amatrix, matrix_multiplication
 
 @cython.boundscheck(False)      # Deactivate bounds checking to increase speed
 @cython.wraparound(False)       # Deactivate negative indexing to increase speed
@@ -39,16 +39,22 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c):
     cdef Amatrix A
     A.NRows = nrows_a
     A.NCols = ncols_a
+    # Dynamic memory allocation for 1D pointer array with size as the number of rows in A.
+    # Each pointer will link to the address of the first element of each matrix row in temp_a, a numpy array.
     A.mat = <float **> malloc(nrows_a * sizeof(float *))
 
     cdef Amatrix B
     B.NRows = nrows_b
     B.NCols = ncols_b
+    # Dynamic memory allocation for 1D pointer array with size as the number of rows in B.
+    # Each pointer will link to the address of the first element of each matrix row in temp_b, a numpy array.
     B.mat = <float **> malloc(nrows_b * sizeof(float *))
 
     cdef Amatrix C
     C.NRows = nrows_c
     C.NCols = ncols_c
+    # Dynamic memory allocation for 1D pointer array with size as the number of rows in C.
+    # Each pointer will link to the address of the first element of each matrix row in py_c, a numpy array.
     C.mat = <float **> malloc(nrows_c * sizeof(float *))
 
     if not (A.mat and B.mat and C.mat):
@@ -66,9 +72,11 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c):
         # Multiply matrices together using cython subroutine
         matrix_multiplication(&A, &B, &C)
     finally:
+        # Free 1D pointer array
         free(A.mat)
         free(B.mat)
         free(C.mat)
+        # del temporary numpy array
         del temp_a
         del temp_b
 
