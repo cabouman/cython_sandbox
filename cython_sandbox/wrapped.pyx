@@ -1,5 +1,4 @@
 import numpy as np
-import time
 
 import ctypes           # Import python package required to use cython
 cimport cython          # Import cython package

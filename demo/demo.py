@@ -20,17 +20,15 @@ if __name__ == '__main__':
     print(C1)
     print("Cython computation time: %f sec\n" % (time_end - time_start))
 
-
-    # Start a timer and compute using numpy
+    # Compute matrix multiplication using numpy
     time_start = time.time()
     C2 = np.dot(A, B)
     time_end = time.time()
     print("Output from numpy matrix multiplication:")
     print(C2)
-    print("numpy  finished: %f sec\n" % (time_end - time_start))
+    print("numpy computation time: %f sec\n" % (time_end - time_start))
 
-    # Display the difference
+    # Print error
     err = np.sum((C1 - C2) ** 2)
-    print("\n********************** Result Conclusion **********************")
     print("L2 difference between cython and numpy.dot matrix product: %f" % err)
 
