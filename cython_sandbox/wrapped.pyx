@@ -3,6 +3,7 @@ import numpy as np
 import ctypes           # Import python package required to use cython
 cimport cython          # Import cython package
 cimport numpy as np     # Import specialized cython support for numpy
+from libc.stdlib cimport malloc,free
 
 # This imports functions and data types from the matrices.pxd file in the same directory
 from matrices cimport Amatrix, free_matrix, malloc_matrix, matrix_multiplication
@@ -38,29 +39,36 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c):
     cdef Amatrix A
     A.NRows = nrows_a
     A.NCols = ncols_a
-    malloc_matrix(&A)
+    A.mat = <float **> malloc(nrows_a * sizeof(float *))
 
     cdef Amatrix B
     B.NRows = nrows_b
     B.NCols = ncols_b
-    malloc_matrix(&B)
+    B.mat = <float **> malloc(nrows_b * sizeof(float *))
 
     cdef Amatrix C
     C.NRows = nrows_c
     C.NCols = ncols_c
-    malloc_matrix(&C)
+    C.mat = <float **> malloc(nrows_c * sizeof(float *))
 
     if not (A.mat and B.mat and C.mat):
         raise MemoryError
 
-    # Link Matrix pointers to the address of the first element of each row.
-    for i in range(nrows_a):
-        A.mat[i] = &temp_a[i, 0]
-    for i in range(nrows_b):
-        B.mat[i] = &temp_b[i, 0]
-    for i in range(nrows_a):
-        C.mat[i] = &py_c[i, 0]
+    try:
+        # Link Matrix pointers to the address of the first element of each row.
+        for i in range(nrows_a):
+            A.mat[i] = &temp_a[i, 0]
+        for i in range(nrows_b):
+            B.mat[i] = &temp_b[i, 0]
+        for i in range(nrows_a):
+            C.mat[i] = &py_c[i, 0]
 
-    # Multiply matrices together using cython subroutine
-    matrix_multiplication(&A, &B, &C)
+        # Multiply matrices together using cython subroutine
+        matrix_multiplication(&A, &B, &C)
+    finally:
+        free(A.mat)
+        free(B.mat)
+        free(C.mat)
+        del temp_a
+        del temp_b
 
