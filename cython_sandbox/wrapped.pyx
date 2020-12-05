@@ -1,8 +1,8 @@
 import numpy as np
 
-import ctypes                             # Import python package required to use cython
-cimport cython                            # Import cython package
-cimport numpy as np                       # Import specialized cython support for numpy
+import ctypes                              # Import python package required to use cython
+cimport cython                             # Import cython package
+cimport numpy as np                        # Import specialized cython support for numpy
 from libc.stdlib cimport malloc, free      # Import C provided the functions for dynamic memory allocation
 
 # This imports functions and data types from the matrices.pxd file in the same directory
