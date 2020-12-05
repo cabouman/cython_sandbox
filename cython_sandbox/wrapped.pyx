@@ -5,7 +5,7 @@ cimport cython          # Import cython package
 cimport numpy as np     # Import specialized cython support for numpy
 
 # This imports functions and data types from the matrices.pxd file in the same directory
-from matrices cimport Amatrix, matrix_multiplication, free_matrix, malloc_matrix, matrix_multiplication_nomalloc
+from matrices cimport Amatrix, free_matrix, malloc_matrix, matrix_multiplication
 
 @cython.boundscheck(False)      # Deactivate bounds checking to increase speed
 @cython.wraparound(False)       # Deactivate negative indexing to increase speed
@@ -62,5 +62,5 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c):
         C.mat[i] = &py_c[i, 0]
 
     # Multiply matrices together using cython subroutine
-    matrix_multiplication_nomalloc(&A, &B, &C)
+    matrix_multiplication(&A, &B, &C)
 
