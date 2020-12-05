@@ -60,6 +60,7 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b, float[:,:] py_c):
     if not (A.mat and B.mat and C.mat):
         raise MemoryError
 
+    # Whether or not an exception occurred, "try..finally" makes sure to run the finally block to free memeory.
     try:
         # Link Matrix pointers to the address of the first element of each row.
         for i in range(nrows_a):
