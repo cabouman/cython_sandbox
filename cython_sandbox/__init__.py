@@ -1,1 +1,1 @@
-from .wrapped import py_matrix_multiplication, py_matrix_multiplication2
+from .wrapped import py_matrix_multiplication
