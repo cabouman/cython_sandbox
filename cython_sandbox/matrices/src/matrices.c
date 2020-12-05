@@ -12,7 +12,7 @@ void malloc_matrix(struct Amatrix *A)
 
 void free_matrix(struct Amatrix *A)
 {
-free_img(A->mat);
+    free_img((void **)A->mat);
 }
 
 void matrix_multiplication(struct Amatrix *A, struct Amatrix *B , struct Amatrix *C)
