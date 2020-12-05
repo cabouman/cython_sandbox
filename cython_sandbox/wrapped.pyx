@@ -1,22 +1,18 @@
 import numpy as np
 import time
 
-# Import python package required to use cython
-import ctypes
-
-# Import cython package
-cimport cython
-
-# Import specialized cython support for numpy
-cimport numpy as np
+import ctypes           # Import python package required to use cython
+cimport cython          # Import cython package
+cimport numpy as np     # Import specialized cython support for numpy
 
 # This imports functions and data types from the matrices.pxd file in the same directory
 from matrices cimport Amatrix, matrix_multiplication, free_matrix, malloc_matrix, matrix_multiplication_nomalloc
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
+@cython.boundscheck(False)      # Deactivate bounds checking to increase speed
+@cython.wraparound(False)       # Deactivate negative indexing to increase speed
 def py_matrix_multiplication(np.ndarray[np.float32_t,ndim=2,mode='c'] py_a, np.ndarray[np.float32_t, ndim=2, mode='c'] py_b):
-    '''
+    """
+    Multiply two matrices together
 
     Args:
         py_a(float): 2D numpy array, the left matrix A.
@@ -24,8 +20,7 @@ def py_matrix_multiplication(np.ndarray[np.float32_t,ndim=2,mode='c'] py_a, np.n
 
     Returns(float):
         2D numpy array, the product of two matrices.
-
-    '''
+    """
 
     # cdef specifies the use of a cython variable typed as int, as opposed to a python variable
     cdef int i
@@ -33,7 +28,7 @@ def py_matrix_multiplication(np.ndarray[np.float32_t,ndim=2,mode='c'] py_a, np.n
     nrows_b,ncols_b = np.shape(py_b)
 
     # Copies the python variable py_a to the cython variable temp_a
-    # The np.ascontiguousarray insures that data conforms to a row major (i.e., C) standards
+    # The np.ascontiguousarray insures that data conforms to a row major (i.e., C) standard
     # see: https://stackoverflow.com/questions/26998223/what-is-the-difference-between-contiguous-and-non-contiguous-arrays
     cdef np.ndarray[float, ndim=2, mode="c"] temp_a = np.ascontiguousarray(py_a, dtype = ctypes.c_float)
     cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype = ctypes.c_float)
