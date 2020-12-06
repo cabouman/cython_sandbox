@@ -8,13 +8,12 @@ This is a simple demo of multiplying two matrices using a cython wrapper to a C 
 
 if __name__ == '__main__':
     # Get random matrices A and B of compatible sizes
-    A = np.random.randint(10, size=(1300, 400)).astype(np.float32)
-    B = np.random.randint(10, size=(400, 1500)).astype(np.float32)
+    A = np.random.randint(10, size=(1000, 500)).astype(np.float32)
+    B = np.random.randint(10, size=(500, 10)).astype(np.float32)
 
     # Compute matrix multiplication using cython wrapper
-    C1 = np.zeros((A.shape[0], B.shape[1])).astype(np.float32)
     time_start = time.time()
-    py_matrix_multiplication(A, B, C1)
+    C1 = py_matrix_multiplication(A, B)
     time_end = time.time()
     print("Output from cython matrix multiplication:")
     print(C1)
