@@ -7,21 +7,11 @@ from numpy cimport int32_t, float_t, double_t
 
 cdef extern from "matrices/src/matrices.h":
     # Define cython data structure
-    struct Amatrix:
+    struct Amatrix_float:
         int NRows;
         int NCols;
-        float **mat;
-    
+        float *mat_pt;  # Pointer to 1D contiguous array used by python
+        float **mat;    # Pointer used for 2D array used by multialloc that is indexed by mat[NRows][NCols]
+
     # Define cython functions
-    void matrix_multiplication(
-            Amatrix *A,
-            Amatrix *B ,
-            Amatrix *C);
-
-    void matrix_multiplication_nomalloc(
-            Amatrix *A,
-            Amatrix *B ,
-            Amatrix *C);
-
-    void malloc_matrix(Amatrix *A);
-    void free_matrix(Amatrix *A);
+    int matrix_multiplication(Amatrix_float *A, Amatrix_float *B , Amatrix_float *C);

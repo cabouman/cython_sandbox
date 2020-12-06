@@ -3,9 +3,9 @@ This is a sandbox for people to use for cython implementation experiment.
 
 # Installation
 ## 1. Downloading
-``git clone https://github.com/cabouman/Cython-Sandbox.git``
+``git clone https://github.com/cabouman/cython_sandbox.git``
 
-``cd Cython-Sandbox``
+``cd cython_sandbox``
 
 ## 2. Installing Python Package
 ### 1. (Optional) Create Conda Environment:
@@ -14,15 +14,15 @@ To do this, first install ``Anaconda``, and then create and activate an ``svmbir
 
 ``conda env create -f environment.yml``
 
-``conda activate cython-sandbox``
+``conda activate cython_sandbox``
 
 This will create a conda environment with the required dependencies.
-Before running the code, this ``cython-sandbox`` conda environment should always be activated.
+Before running the code, this ``cython_sandbox`` conda environment should always be activated.
 
 If you don't want to create a conda environment, just make sure that you have all required packages(environment.yml) installed in your environment.
 
-### 2. Installing cython-sandbox
-In order to install the ``cython-sandbox`` package into your ``cython-sandbox`` environment, first make sure the ``cython-sandbox`` environment is active, and then run the following command
+### 2. Installing cython_sandbox
+In order to install the ``cython_sandbox`` package into your ``cython_sandbox`` environment, first make sure the ``cython_sandbox`` environment is active, and then run the following command
 
 For gcc compiler,
 
@@ -34,8 +34,8 @@ For clang compiler,
 
 The install command sets the ``CC`` environment variable only for the duration of the installation without modifying existing environment variables.
 
-You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython-sandbox`` environment.
-Now you will be able to use the ``cython-sandbox`` python commands from any directory by running the python command ``import cython-sandbox``.
+You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython_sandbox`` environment.
+Now you will be able to use the ``cython_sandbox`` python commands from any directory by running the python command ``import cython_sandbox``.
 
 ### 3. Testing
 After successfully installing the packages, you can test the package using

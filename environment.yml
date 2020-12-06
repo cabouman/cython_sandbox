@@ -1,4 +1,4 @@
-name: cython-sandbox
+name: cython_sandbox
 dependencies:
   - python>=3.6
   - numpy
