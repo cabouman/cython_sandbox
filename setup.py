@@ -6,12 +6,13 @@ NAME = "cython_sandbox"
 VERSION = "0.1"
 DESCR = "A small template project that shows how to wrap C/C++ code into python using Cython"
 REQUIRES = ['numpy', 'cython']
+LICENSE = "BSD-3-Clause"
 
 AUTHOR = "Wenrui Li"
 EMAIL = "liwr5damon@gmail.com"
 
-LICENSE = " BSD-3-Clause"
 
+# Specifies directory containing cython functions to be compiled
 SRC_DIR = "cython_sandbox"
 PACKAGES = [SRC_DIR]
 
@@ -30,8 +31,6 @@ ext_1 = Extension(SRC_DIR + ".wrapped",
                   include_dirs=[np.get_include()])#,
                   #extra_compile_args=["-fopenmp"])#,
                   #extra_link_args=["-fopenmp","-liomp5","-lpthread","-L/opt/intel/lib"])
-
-
 
 EXTENSIONS = [ext_1]
 

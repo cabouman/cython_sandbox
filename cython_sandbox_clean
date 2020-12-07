@@ -4,7 +4,3 @@
 /bin/rm -r build
 /bin/rm -r cython_sandbox.egg-info
 /bin/rm -r dist
-
-cd cython_sandbox/matrices/src
-make clean
-cd ../../..
