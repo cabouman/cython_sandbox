@@ -42,20 +42,7 @@ After successfully installing the packages, you can test the package using
 
 ``python demo/demo.py``
 
-This calculate two matrices multiplication using c library function.
-
-## To compare with c executable.
-
-### 1. Compile executable.
-
-For gcc compiler,
-``make -C cython_sandbox/matrices/src/ CC=gcc``
-
-For clang compiler,
-``make -C cython_sandbox/matrices/src/ CC=clang``
-
-### 2. Run executable
-``./cython_sandbox/matrices/bin/main``
+This calculates two matrices multiplication using c library function.
 
 
 ## More information
