@@ -5,7 +5,7 @@ from numpy import int32, float, double
 from numpy cimport int32_t, float_t, double_t
 
 
-cdef extern from "matrices/src/matrices.h":
+cdef extern from "src/matrices.h":
     # Define cython data structure
     struct Amatrix_float:
         int NRows;
