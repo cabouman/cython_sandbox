@@ -14,7 +14,7 @@ struct Amatrix_float
 int matrix_multiplication(struct Amatrix_float *A, struct Amatrix_float *B , struct Amatrix_float *C);
 
 
-void py_2_multialloc_2D(struct Amatrix_float *A);
-void multialloc_2_py_2D(struct Amatrix_float *A);
+void array_2_multialloc_2D(struct Amatrix_float *A);
+void multialloc_2_array_2D(struct Amatrix_float *A);
 
 #endif

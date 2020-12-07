@@ -6,7 +6,7 @@
 #include "matrices.h"
 
 
-void py_2_multialloc_2D(struct Amatrix_float *A)
+void array_2_multialloc_2D(struct Amatrix_float *A)
 {
     int i;
 
@@ -18,7 +18,7 @@ void py_2_multialloc_2D(struct Amatrix_float *A)
 }
 
 
-void multialloc_2_py_2D(struct Amatrix_float *A)
+void multialloc_2_array_2D(struct Amatrix_float *A)
 {
     free((void **)A->mat);
 }
@@ -29,9 +29,9 @@ int matrix_multiplication(struct Amatrix_float *A, struct Amatrix_float *B , str
     int i, j, k;
 
     /* Convert 2D arrays from 1D python format to 2D multialloc format */
-    py_2_multialloc_2D(A);
-    py_2_multialloc_2D(B);
-    py_2_multialloc_2D(C);
+    array_2_multialloc_2D(A);
+    array_2_multialloc_2D(B);
+    array_2_multialloc_2D(C);
 
     /* Check that matrix shapes are correct */
     if (A->NCols != B->NRows) {
@@ -47,8 +47,8 @@ int matrix_multiplication(struct Amatrix_float *A, struct Amatrix_float *B , str
                 C->mat[i][j] += A->mat[i][k]*B->mat[k][j];
         }
 
-    multialloc_2_py_2D(A);
-    multialloc_2_py_2D(B);
-    multialloc_2_py_2D(C);
+    multialloc_2_array_2D(A);
+    multialloc_2_array_2D(B);
+    multialloc_2_array_2D(C);
     return(0);
 }
