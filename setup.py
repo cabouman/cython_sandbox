@@ -24,26 +24,23 @@ PACKAGES = [SRC_DIR]
 #                   extra_compile_args=["-fopenmp"],
 #                   extra_link_args=["-fopenmp"])
 
-# MacOS
-ext_1 = Extension(SRC_DIR + ".wrapped",
+# These settings work for MacOS, but still need to be tested for Linux and Windows
+c_extension = Extension(SRC_DIR + ".wrapped",
                   [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                   libraries=[],
                   include_dirs=[np.get_include()])#,
                   #extra_compile_args=["-fopenmp"])#,
                   #extra_link_args=["-fopenmp","-liomp5","-lpthread","-L/opt/intel/lib"])
 
-EXTENSIONS = [ext_1]
-
-if __name__ == "__main__":
-    setup(install_requires=REQUIRES,
-          packages=PACKAGES,
-          zip_safe=False,
-          name=NAME,
-          version=VERSION,
-          description=DESCR,
-          author=AUTHOR,
-          author_email=EMAIL,
-          license=LICENSE,
-          cmdclass={"build_ext": build_ext},
-          ext_modules=EXTENSIONS
-          )
+setup(install_requires=REQUIRES,
+      packages=PACKAGES,
+      zip_safe=False,
+      name=NAME,
+      version=VERSION,
+      description=DESCR,
+      author=AUTHOR,
+      author_email=EMAIL,
+      license=LICENSE,
+      cmdclass={"build_ext": build_ext},
+      ext_modules=[c_extension]
+      )
