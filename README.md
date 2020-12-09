@@ -27,10 +27,10 @@ To do this, first install ``Anaconda``, and then execute the following command f
 This will create and activate a conda environment named ``cython_sandbox`` with the required dependencies.
 Before running the code, this ``cython_sandbox`` conda environment should always be activated.
 
-**1. Download and Compile Cython Code**
+**2. Download and Compile Cython Code**
 
 You will next need to download and compile the repository.
-Do to this, download the repository by typing the following command into the terminal.
+To do this, download the repository by typing the following command into the terminal.
 
 ``git clone https://github.com/cabouman/cython_sandbox.git``
 
@@ -39,11 +39,11 @@ You should then move into the root directory of the repository using the followi
 
 ``cd cython_sandbox``
 
-In order to compile and install the package, run the following command for the ``gcc`` compiler,
+In order to compile and install the package, run the following command for the ``gcc`` compiler:
 
 ``CC=gcc python setup.py install``
 
-And the following command for ``clang`` compiler,
+And the following command for the ``clang`` compiler:
 
 ``CC=clang python setup.py install``
 
@@ -51,13 +51,16 @@ These install commands temporarily set the ``CC`` environment variable for the d
 and then use the ``setup.py`` script to compile and install the package.
 
 You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython_sandbox`` environment.
-Now you will be able to use the ``cython_sandbox`` python commands from any directory by running the python command ``import cython_sandbox``.
+Now you will be able to use the ``cython_sandbox`` python commands from any directory by running the python command:
 
-**Run Demo**
+``import cython_sandbox``
+
+**3. Run Demo**
 
 After successfully installing the packages, you can run a demo that exercises the package using the command
 
 ``python demo/demo.py``
 
-This calculates the product of two matrices using the resulting python function, compares the result to the product computed using a standard ``numpy`` function and compares the result.
+This calculates the product of two matrices using the resulting python function, 
+compares the result to the product computed using a standard ``numpy`` function, and prints out the results.
 
