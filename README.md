@@ -5,19 +5,17 @@ This simple example can be used as a template for building complex python interf
 See [link](https://suzyahyah.github.io/cython/programming/2018/12/01/Gotchas-in-Cython.html) for more information on cython.
 
 
-# Installation Package
+# Installation
 
-These installation instructions assume that you have access to an command line interface to your computer 
+These installation instructions assume that you have access to a command line interface to your computer 
 using a bash or other standard terminal.
 This interface is standard in Linux, Unix (i.e., Mac OSX), but will need to be installed for Windows environments.
 
-You will also need a compiler, such as ``gcc``, ``clang`` available on Mac OSX, or Intel ``icc`` compilers.
+You will also need a compiler, such as ``gcc``, ``clang`` available on Mac OSX, or the Intel ``icc`` compiler.
 The ``gcc`` compiler is perhaps the most widely available, but ``clang`` is the default compiler available for download as part of the ``X-code`` development and comand line packages on Apple OSX.
 
 
-We recommend the 
-
-## 1. Create Conda Environment:
+**1. Create Conda Environment:**
 
 You will need to create a conda environment.
 To do this, first install ``Anaconda``, and then execute the following command from the ``cython_sandbox`` directory:
@@ -29,7 +27,7 @@ To do this, first install ``Anaconda``, and then execute the following command f
 This will create and activate a conda environment named ``cython_sandbox`` with the required dependencies.
 Before running the code, this ``cython_sandbox`` conda environment should always be activated.
 
-## 1. Download and Compile Cython Code
+**1. Download and Compile Cython Code**
 
 You will next need to download and compile the repository.
 Do to this, download the repository by typing the following command into the terminal.
@@ -55,7 +53,7 @@ and then use the ``setup.py`` script to compile and install the package.
 You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython_sandbox`` environment.
 Now you will be able to use the ``cython_sandbox`` python commands from any directory by running the python command ``import cython_sandbox``.
 
-# Running Functions
+**Run Demo**
 
 After successfully installing the packages, you can run a demo that exercises the package using the command
 
