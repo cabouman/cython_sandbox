@@ -1,22 +1,26 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
 #include "allocate.h"
 
 void *get_spc(size_t num, size_t size)
 {
 	void *pt;
 
-	if( (pt=calloc((size_t)num,size)) == NULL ) {
-		fprintf(stderr, "==> calloc() error, num=%zu, size=%zu\n", num, size);
+	if( (pt=calloc(num,size)) == NULL ) {
+		fprintf(stderr, "get_spc(): calloc() error\n");
 		exit(-1);
 		}
 	return(pt);
 }
 
-void *mget_spc(size_t num,size_t size)
+void *mget_spc(size_t num, size_t size)
 {
 	void *pt;
 
-	if( (pt=malloc((size_t)(num*size))) == NULL ) {
-		fprintf(stderr, "==> malloc() error, num=%zu, size=%zu\n", num, size);
+	if( (pt=malloc(num*size)) == NULL ) {
+		fprintf(stderr, "mget_spc(): malloc() error\n");
 		exit(-1);
 		}
 	return(pt);
@@ -54,16 +58,16 @@ void free_img(void **pt)
 /* of size s.                                                             */
 
 
-void *multialloc(size_t s, size_t d, ...)
+void *multialloc(size_t s, int d, ...)
 {
         va_list ap;             /* varargs list traverser */
-        size_t max,                /* size of array to be declared */
-        *q;                     /* pointer to dimension list */
-        char **r,               /* pointer to beginning of the array of the
+        size_t max;             /* size of array to be declared */
+        size_t j;               /* loop counter */
+        size_t *d1,*q;          /* pointer to dimension list */
+        char **r;               /* pointer to beginning of the array of the
                                  * pointers for a dimension */
-        **s1, *t, *tree;        /* base pointer to beginning of first array */
-        size_t i, j;               /* loop counters */
-        size_t *d1;                /* dimension list */
+        char **s1, *t, *tree;   /* base pointer to beginning of first array */
+        int i;                  /* loop counter */
 
         va_start(ap,d);
         d1 = (size_t *) mget_spc(d,sizeof(size_t));
@@ -90,7 +94,7 @@ void *multialloc(size_t s, size_t d, ...)
           r = (char **) r[0];     /* step through to beginning of next
                                    * dimension array */
         }
-        max *= (size_t)s * (*q);        /* grab actual array memory */
+        max *= s * (*q);        /* grab actual array memory */
         r[0] = (char *)mget_spc(max,sizeof(char));
 
         /*
@@ -126,7 +130,7 @@ void *multialloc(size_t s, size_t d, ...)
                                    * last pointer array */
 
         /* same as previous loop, but different size factor */
-        for (j = 1, s1 = r + 1, t = r[0]; j < max; j++) 
+        for (j = 1, s1 = r + 1, t = r[0]; j < max; j++)
           *s1++ = (t += s * *(q + 1));
 
         va_end(ap);
@@ -140,11 +144,11 @@ void *multialloc(size_t s, size_t d, ...)
  * multifree releases all memory that we have already declared analogous to
  * free() when using malloc() 
  */
-void multifree(void *r,size_t d)
+void multifree(void *r, int d)
 {
         void **p;
-        void *next;
-        size_t i;
+        void *next=NULL;
+        int i;
 
         for (p = (void **)r, i = 0; i < d; p = (void **) next,i++)
           if (p != NULL) {
@@ -152,6 +156,5 @@ void multifree(void *r,size_t d)
             free((void *)p);
             }
 }
-
 
 
