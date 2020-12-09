@@ -26,7 +26,7 @@ PACKAGES = [SRC_DIR]
 
 # MacOS
 ext_1 = Extension(SRC_DIR + ".wrapped",
-                  [SRC_DIR + "/matrices/src/matrices.c",SRC_DIR + "/matrices/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
+                  [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                   libraries=[],
                   include_dirs=[np.get_include()])#,
                   #extra_compile_args=["-fopenmp"])#,
