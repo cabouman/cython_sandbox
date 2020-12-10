@@ -35,7 +35,7 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype = ctypes.c_float)
 
     # Allocates memory for matrix to be passed back from C subroutine
-    cdef np.ndarray[float, ndim=2, mode="c"] temp_c = np.zeros((nrows_a,ncols_b),dtype = ctypes.c_float)
+    cdef np.ndarray[float, ndim=2, mode="c"] temp_c = np.empty((nrows_a,ncols_b),dtype = ctypes.c_float)
 
     # Declare and initialize 3 A matrix
     cdef Amatrix_float A
