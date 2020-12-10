@@ -6,32 +6,14 @@
 #include "matrices.h"
 
 
-void array_2_multialloc_2D(struct Amatrix_float *A)
-{
-    int i;
-
-    /* Allocate and set array of pointers for multialloc array */
-    A->mat = get_spc(sizeof(float *), A->NRows);
-    for (i = 0; i < A->NRows ; i ++ ) {
-        A->mat[i] = A->mat_pt + i*(A->NCols);
-    }
-}
-
-
-void multialloc_2_array_2D(struct Amatrix_float *A)
-{
-    free((void **)A->mat);
-}
-
-
-int matrix_multiplication(struct Amatrix_float *A, struct Amatrix_float *B , struct Amatrix_float *C)
+int matrix_multiplication(struct matrix_float *A, struct matrix_float *B , struct matrix_float *C)
 {
     int i, j, k;
 
     /* Convert 2D arrays from 1D python format to 2D multialloc format */
-    array_2_multialloc_2D(A);
-    array_2_multialloc_2D(B);
-    array_2_multialloc_2D(C);
+    array_2_multialloc_2Dfloat(A);
+    array_2_multialloc_2Dfloat(B);
+    array_2_multialloc_2Dfloat(C);
 
     /* Check that matrix shapes are correct */
     if (A->NCols != B->NRows) {
@@ -47,8 +29,26 @@ int matrix_multiplication(struct Amatrix_float *A, struct Amatrix_float *B , str
                 C->mat[i][j] += A->mat[i][k]*B->mat[k][j];
         }
 
-    multialloc_2_array_2D(A);
-    multialloc_2_array_2D(B);
-    multialloc_2_array_2D(C);
+    multialloc_2_array_2Dfloat(A);
+    multialloc_2_array_2Dfloat(B);
+    multialloc_2_array_2Dfloat(C);
     return(0);
+}
+
+
+void array_2_multialloc_2Dfloat(struct matrix_float *A)
+{
+    int i;
+
+    /* Allocate and set array of pointers for multialloc array */
+    A->mat = get_spc(sizeof(float *), A->NRows);
+    for (i = 0; i < A->NRows ; i ++ ) {
+        A->mat[i] = A->mat_pt + i*(A->NCols);
+    }
+}
+
+
+void multialloc_2_array_2Dfloat(struct matrix_float *A)
+{
+    free((void **)A->mat);
 }
