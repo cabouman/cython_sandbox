@@ -15,10 +15,16 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     Multiply two single precision float matrices together
 
     Args:
-        py_a(float): 2D numpy array, the left matrix A.
-        py_b(float): 2D numpy array, the right matrix B.
+        py_a(float): 2D numpy float array with C continuous order, the left matrix A.
+        py_b(float): 2D numpy float array with C continuous order, the right matrix B.
 
+    Return:
+        py_c: 2D numpy float array that is the product of A and B.
     """
+
+    # Need to add test that cython numpy ndarrays have C contiguous format
+    #if (not py_a.flags['C_CONTIGUOUS']) or (not py_b.flags['C_CONTIGUOUS']):
+    #    raise ValueError("Error: Input matrix should be C contiguous")
 
     # Get shapes of A and B
     nrows_a, ncols_a = np.shape(py_a)
@@ -31,29 +37,29 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     # Copy ndarray structures from python variables to the cython variables
     # The np.ascontiguousarray insures that data conforms to a row major (i.e., C) standard
     # see: https://stackoverflow.com/questions/26998223/what-is-the-difference-between-contiguous-and-non-contiguous-arrays
-    cdef np.ndarray[float, ndim=2, mode="c"] temp_a = np.ascontiguousarray(py_a, dtype = ctypes.c_float)
-    cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype = ctypes.c_float)
+    #cdef np.ndarray[float, ndim=2, mode="c"] temp_a = np.ascontiguousarray(py_a, dtype=ctypes.c_float)
+    #cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype=ctypes.c_float)
 
-    # Allocates memory for matrix to be passed back from C subroutine
-    cdef np.ndarray[float, ndim=2, mode="c"] temp_c = np.empty((nrows_a,ncols_b),dtype = ctypes.c_float)
+    # Allocates memory, without initialization, for matrix to be passed back from C subroutine
+    cdef np.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a,ncols_b), dtype=ctypes.c_float)
 
     # Declare and initialize 3 A matrix
     cdef Amatrix_float A
-    A.mat_pt = &temp_a[0, 0]
+    A.mat_pt = &py_a[0, 0]
     A.NRows = nrows_a
     A.NCols = ncols_a
 
     cdef Amatrix_float B
-    B.mat_pt = &temp_b[0, 0]
+    B.mat_pt = &py_b[0, 0]
     B.NRows = nrows_b
     B.NCols = ncols_b
 
     cdef Amatrix_float C
-    C.mat_pt = &temp_c[0, 0]
+    C.mat_pt = &py_c[0, 0]
     C.NRows = nrows_c
     C.NCols = ncols_c
 
     # Multiply matrices together using cython subroutine
     matrix_multiplication(&A, &B, &C)
 
-    return temp_c
+    return py_c
