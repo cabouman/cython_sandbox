@@ -24,15 +24,16 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     nrows_a, ncols_a = np.shape(py_a)
     nrows_b, ncols_b = np.shape(py_b)
 
-    # Allocate memory for output matrix
-    nrows_c, ncols_c = nrows_a, ncols_b
 
     # Copy pointers to python variables to the cython variables
     # The np.ascontiguousarray insures that data conforms to a row major (i.e., C) standard
     # see: https://stackoverflow.com/questions/26998223/what-is-the-difference-between-contiguous-and-non-contiguous-arrays
     cdef np.ndarray[float, ndim=2, mode="c"] temp_a = np.ascontiguousarray(py_a, dtype = ctypes.c_float)
     cdef np.ndarray[float, ndim=2, mode="c"] temp_b = np.ascontiguousarray(py_b, dtype = ctypes.c_float)
+
+    # Allocate memory for output matrix
     cdef np.ndarray[float, ndim=2, mode="c"] temp_c = np.zeros((nrows_a,ncols_b),dtype = ctypes.c_float)
+    nrows_c, ncols_c = np.shape(temp_c)
 
     # Declare and initialize 3 A matrix
     cdef Amatrix_float A
