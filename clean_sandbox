@@ -4,3 +4,5 @@
 /bin/rm -r build
 /bin/rm -r cython_sandbox.egg-info
 /bin/rm -r dist
+
+pip uninstall cython_sandbox

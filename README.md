@@ -41,11 +41,11 @@ You should then move into the root directory of the repository using the followi
 
 In order to compile and install the package, run the following command for the ``gcc`` compiler:
 
-``CC=gcc python setup.py install``
+``CC=gcc pip install .``
 
 And the following command for the ``clang`` compiler:
 
-``CC=clang python setup.py install``
+``CC=clang pip install .``
 
 These install commands temporarily set the ``CC`` environment variable for the duration of the installation 
 and then use the ``setup.py`` script to compile and install the package.
