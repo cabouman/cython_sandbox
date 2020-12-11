@@ -86,9 +86,10 @@ However, some special steps are necessary for ``clang``.
 
 If you are using ``clang``, then you will need to use the following modified command to install the conda environment:
 
-``conda env create -f environment-clang.yml``
+``conda env create -f environment-clangomp.yml``
+``conda activate cython_sandbox_clangomp``
 
-This command makes sure not to install the MKL support, which is redundant for the ``clang`` environment and interferes with the OMP libraries.
+This creates a special conda environment that does not install the MKL support, which is redundant for the ``clang`` environment and interferes with the OMP libraries.
 See item 24 [here](https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial) for details.
 
 
