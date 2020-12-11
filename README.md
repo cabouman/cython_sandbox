@@ -4,16 +4,20 @@ This repository contains a simple example of how to use cython to create a pytho
 This simple example can be used as a template for building complex python interfaces to existing C libraries.
 See [link](https://suzyahyah.github.io/cython/programming/2018/12/01/Gotchas-in-Cython.html) for more information on cython.
 
+For the standard single threaded C code go [here](https://github.com/cabouman/cython_sandbox).
+But if you would like to use the multi-threaded C-code with the OpenMP libraries, then go [here](https://github.com/cabouman/cython_sandbox/tree/openmp).
 
-# Installation
+# Single Threaded Installation
+
+Obtain the single-threaded version of the cython_sandbox from [here](https://github.com/cabouman/cython_sandbox).
 
 These installation instructions assume that you have access to a command line interface to your computer 
 using a bash or other standard terminal.
 This interface is standard in Linux, Unix (i.e., Mac OSX), but will need to be installed for Windows environments.
 
 You will also need a compiler, such as ``gcc``, ``clang`` available on Mac OSX, or the Intel ``icc`` compiler.
-The ``gcc`` compiler is perhaps the most widely available, but ``clang`` is the default compiler available for download as part of the ``X-code`` development and comand line packages on Apple OSX.
-
+The ``gcc`` compiler is perhaps the most widely available, but ``clang`` is the default Mac OSX compiler.
+The both ``Xcode`` and ``Command Line Tools for Xcode`` are available from [here](https://developer.apple.com/download/more/)
 
 **1. Create Conda Environment:**
 
@@ -68,3 +72,30 @@ After successfully installing the packages, you can run a demo that exercises th
 
 This calculates the product of two matrices using the resulting python function, 
 compares the result to the product computed using a standard ``numpy`` function, and prints out the results.
+
+
+# Multi-Threaded OpenMP Installation
+
+Obtain the multi-threaded version of the cython_sandbox from [here](https://github.com/cabouman/cython_sandbox/tree/openmp).
+This supports the use of the OpenMP libraries and can use multiple cores in your computer in parallel.
+
+For ``gcc`` most things are similar as in the single-threaded version.
+However, some special steps are necessary for ``clang``.
+
+**1. Create Conda Environment:**
+
+If you are using ``clang``, then you will need to use the following modified command to install the conda environment:
+
+``conda env create -f environment-clang.yml``
+
+This command makes sure not to install the MKL support, which is redundant for the ``clang`` environment and interferes with the OMP libraries.
+See item 24 [here](https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial) for details.
+
+
+**2. Compile Cython Code**
+
+For Mac OSX you will need to install OpenMP libraries.
+You can obtain this libraries from [here](https://mac.r-project.org/openmp/).
+Once the OMP libraries are installed, you should be able to compile with the same command:
+
+``CC=clang pip install .``
