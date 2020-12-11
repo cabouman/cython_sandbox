@@ -11,10 +11,6 @@ if __name__ == '__main__':
     A = np.random.randint(10, size=(1000, 500)).astype(np.float32)
     B = np.random.randint(10, size=(500, 10)).astype(np.float32)
 
-    # Insure that both A and B have C contiguous format; This will cause arrays to be copied if they do not.
-    A = np.ascontiguousarray(A)             # Ensures C contiguous format
-    B = np.ascontiguousarray(B)             # Ensures C contiguous format
-
     time1 = time.time()
     # Compute matrix multiplication using cython wrapper
     C1 = cython_matrix_multiplication(A, B)     # Requires that 2D np.ndarrays that are floats with C contiguous format

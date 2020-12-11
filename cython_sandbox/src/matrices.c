@@ -14,12 +14,6 @@ int matrix_multiplication(struct matrix_float *A, struct matrix_float *B , struc
     array_2_multialloc_2Dfloat(B);
     array_2_multialloc_2Dfloat(C);
 
-    /* Check that matrix shapes are correct */
-    if (A->NCols != B->NRows) {
-        printf("Number of columns in matrix A(%d) should equal to number of rows in matrix B(%d).\n", A->NCols, B->NRows);
-        return(-1);
-    }
-
     /* Compute matrix product */
     for (i = 0; i < A->NRows ; i ++ )
         for (j = 0; j < B->NCols ; j ++ ) {

@@ -10,7 +10,7 @@ from matrices cimport matrix_float, matrix_multiplication
 @cython.boundscheck(False)      # Deactivate bounds checking to increase speed
 @cython.wraparound(False)       # Deactivate negative indexing to increase speed
 
-def cython_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
+def cython_matrix_multiplication(cnp.ndarray py_a, cnp.ndarray py_b):
     """
     Cython function that multiplies two single precision float matrices
 
@@ -26,21 +26,30 @@ def cython_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     nrows_a, ncols_a = np.shape(py_a)
     nrows_b, ncols_b = np.shape(py_b)
 
+    if (not py_a.flags["C_CONTIGUOUS"]) or (not py_b.flags["C_CONTIGUOUS"]):
+        raise AttributeError("2D np.ndarrays must be C-contiguous")
+
+    if (ncols_a != nrows_b):
+        raise AttributeError("Matrix shapes are not compatible")
+
     # Set output matrix shape
     nrows_c = nrows_a
     ncols_c = ncols_b
+
+    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_a = py_a
+    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_b = py_b
 
     # Allocates memory, without initialization, for matrix to be passed back from C subroutine
     cdef cnp.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a,ncols_b), dtype=ctypes.c_float)
 
     # Declare and initialize 3 matrices
     cdef matrix_float A     # Allocate C data structure matrix
-    A.mat_pt = &py_a[0, 0]  # Assign pointer in C data structure
+    A.mat_pt = &cy_a[0, 0]  # Assign pointer in C data structure
     A.NRows = nrows_a       # Set value of NRows in C data structure
     A.NCols = ncols_a       # Set value of NCols in C data structure
 
     cdef matrix_float B
-    B.mat_pt = &py_b[0, 0]
+    B.mat_pt = &cy_b[0, 0]
     B.NRows = nrows_b
     B.NCols = ncols_b
 
