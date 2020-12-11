@@ -63,4 +63,3 @@ After successfully installing the packages, you can run a demo that exercises th
 
 This calculates the product of two matrices using the resulting python function, 
 compares the result to the product computed using a standard ``numpy`` function, and prints out the results.
-
