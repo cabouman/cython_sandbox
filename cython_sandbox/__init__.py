@@ -1,3 +1,3 @@
-# import the function 'py_matrix_multiplication' from the package 'wrapped' 
-# from the cython file 'wrapped.pyx' in the current directory (.)
-from .wrapped import py_matrix_multiplication
+# import the function 'cython_matrix_multiplication'
+# that is defined in the cython file 'wrapped.pyx' in the current directory (.)
+from .wrapped import cython_matrix_multiplication

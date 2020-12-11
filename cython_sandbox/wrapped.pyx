@@ -10,7 +10,7 @@ from matrices cimport matrix_float, matrix_multiplication
 @cython.boundscheck(False)      # Deactivate bounds checking to increase speed
 @cython.wraparound(False)       # Deactivate negative indexing to increase speed
 
-def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
+def cython_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     """
     Cython function that multiplies two single precision float matrices
 
@@ -34,10 +34,10 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     cdef np.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a,ncols_b), dtype=ctypes.c_float)
 
     # Declare and initialize 3 matrices
-    cdef matrix_float A
-    A.mat_pt = &py_a[0, 0]
-    A.NRows = nrows_a
-    A.NCols = ncols_a
+    cdef matrix_float A     # Allocate C data structure matrix
+    A.mat_pt = &py_a[0, 0]  # Assign pointer in C data structure
+    A.NRows = nrows_a       # Set value of NRows in C data structure
+    A.NCols = ncols_a       # Set value of NCols in C data structure
 
     cdef matrix_float B
     B.mat_pt = &py_b[0, 0]
@@ -52,4 +52,5 @@ def py_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     # Multiply matrices together by calling C subroutine
     matrix_multiplication(&A, &B, &C)
 
+    # Return cython ndarray
     return py_c

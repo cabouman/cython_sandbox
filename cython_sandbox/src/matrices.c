@@ -5,7 +5,6 @@
 #include "allocate.h"
 #include "matrices.h"
 
-
 int matrix_multiplication(struct matrix_float *A, struct matrix_float *B , struct matrix_float *C)
 {
     int i, j, k;
@@ -35,7 +34,6 @@ int matrix_multiplication(struct matrix_float *A, struct matrix_float *B , struc
     return(0);
 }
 
-
 void array_2_multialloc_2Dfloat(struct matrix_float *A)
 {
     int i;
@@ -46,7 +44,6 @@ void array_2_multialloc_2Dfloat(struct matrix_float *A)
         A->mat[i] = A->mat_pt + i*(A->NCols);
     }
 }
-
 
 void multialloc_2_array_2Dfloat(struct matrix_float *A)
 {
