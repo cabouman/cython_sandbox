@@ -1,5 +1,6 @@
 import numpy as np
 from cython_sandbox import cython_matrix_multiplication
+import time
 
 """
 This is a simple demo of how to multiply two matrices using a cython wrapper of a C subrountine
@@ -14,15 +15,23 @@ if __name__ == '__main__':
     A = np.ascontiguousarray(A)             # Ensures C contiguous format
     B = np.ascontiguousarray(B)             # Ensures C contiguous format
 
+    time1 = time.time()
     # Compute matrix multiplication using cython wrapper
     C1 = cython_matrix_multiplication(A, B)     # Requires that 2D np.ndarrays that are floats with C contiguous format
+    time_diff1 = time.time()-time1
+    print(f"The time for Cython execution is = {time_diff1}")
     print("Output from cython matrix multiplication:")
     print(C1)
+    print(f"\n")
 
+    time1 = time.time()
     # Compute matrix multiplication using numpy
     C2 = np.dot(A, B)
+    time_diff1 = time.time()-time1
+    print(f"The time for numpy execution is = {time_diff1}")
     print("Output from numpy matrix multiplication:")
     print(C2)
+    print(f"\n")
 
     # Print error
     err = np.sum((C1 - C2) ** 2)

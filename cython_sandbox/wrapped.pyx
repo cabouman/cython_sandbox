@@ -1,7 +1,7 @@
 import numpy as np
 import ctypes           # Import python package required to use cython
 cimport cython          # Import cython package
-cimport numpy as np     # Import specialized cython support for numpy
+cimport numpy as cnp    # Import specialized cython support for numpy
 
 # This imports functions and data types from the matrices.pxd file in the same directory
 from matrices cimport matrix_float, matrix_multiplication
@@ -31,7 +31,7 @@ def cython_matrix_multiplication(float[:,:] py_a, float[:,:] py_b):
     ncols_c = ncols_b
 
     # Allocates memory, without initialization, for matrix to be passed back from C subroutine
-    cdef np.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a,ncols_b), dtype=ctypes.c_float)
+    cdef cnp.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a,ncols_b), dtype=ctypes.c_float)
 
     # Declare and initialize 3 matrices
     cdef matrix_float A     # Allocate C data structure matrix
