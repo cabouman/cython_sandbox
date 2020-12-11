@@ -17,8 +17,13 @@ The ``gcc`` compiler is perhaps the most widely available, but ``clang`` is the 
 
 **1. Create Conda Environment:**
 
-You will need to create a conda environment.
-To do this, first install ``Anaconda``, and then execute the following command from the ``cython_sandbox`` directory:
+You will first need to install Anaconda and create a conda environment.
+You can get Anaconda from [here](https://www.anaconda.com/products/individual), and here are installation instructions for the
+[Mac OSX](https://problemsolvingwithpython.com/01-Orientation/01.04-Installing-Anaconda-on-MacOS/), 
+[Linux](https://problemsolvingwithpython.com/01-Orientation/01.05-Installing-Anaconda-on-Linux/), and 
+[Windows](https://problemsolvingwithpython.com/01-Orientation/01.03-Installing-Anaconda-on-Windows/).
+
+Once you have installed Anaconda, then execute the following command from the ``cython_sandbox`` directory:
 
 ``conda env create -f environment.yml``
 
