@@ -4,12 +4,17 @@ import time
 
 """
 This is a simple demo of multiplication of two matrices using 
+
     1. Loops in python
-    2. Numpy
-    3. A cython wrapper of a C subroutine
-    4. Native cython
+    2. Naively coded cython without variable types
+    3. Cython with proper variable types
+    4. A cython wrapper of a C subroutine
+    5. Numpy
+
+Note that all computations are done using 32-bit single precision floats.
     
-The page http://nealhughes.net/cython1/ also has a nice description about how to get good performance with cython.    
+The page http://nealhughes.net/cython1/ also has a nice description about how to get good performance with cython.
+See also https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html     
 """
 
 
@@ -31,7 +36,7 @@ def py_mat_mult(A, B):
         raise AttributeError("Input matrices do not have compatible shapes.")
 
     # Allocate space and then loop to do the multiplication
-    C = np.empty((n_rows, n_cols))
+    C = np.empty((n_rows, n_cols), dtype=np.float32)
     for i in range(n_rows):
         for j in range(n_cols):
             C[i,j] = 0

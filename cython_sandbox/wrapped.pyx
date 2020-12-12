@@ -3,6 +3,12 @@ import ctypes           # Import python package required to use cython
 cimport cython          # Import cython package
 cimport numpy as cnp    # Import specialized cython support for numpy
 
+""" 
+This file contains 3 cython functions for matrix multiplication.
+1. A wrapper to manage error handling and call c code to do the multiplication.
+2. A naive cython function without variable types.
+3. A proper cython function with variable types.  
+"""
 # This imports functions and data types from the matrices.pxd file in the same directory
 from matrices cimport matrix_float, matrix_multiplication
 
@@ -96,15 +102,17 @@ def cython_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
     cdef int i, j, k
 
     # Allocate space and then loop to do the multiplication
-    cdef cnp.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a, ncols_b), dtype=ctypes.c_float)
+    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_a = py_a
+    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_b = py_b
+    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_c = np.empty((nrows_a, ncols_b), dtype=ctypes.c_float)
     for i in range(nrows_c):
         for j in range(ncols_c):
-            py_c[i,j] = 0
+            cy_c[i,j] = 0
             for k in range(n_mults):
-                py_c[i,j] += py_a[i, k] * py_b[k, j]
+                cy_c[i,j] += cy_a[i, k] * cy_b[k, j]
 
     # Return cython ndarray
-    return py_c
+    return cy_c
 
 
 def cython_slow_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
