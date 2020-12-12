@@ -1,5 +1,5 @@
 import numpy as np
-from cython_sandbox import cython_matrix_multiplication, cython_mat_mult
+from cython_sandbox import c_mat_mult, cython_mat_mult, cython_slow_mat_mult
 import time
 
 """
@@ -43,12 +43,15 @@ def py_mat_mult(A, B):
 
 if __name__ == '__main__':
     # Generate random matrices A and B of compatible sizes
-    A = np.random.randint(10, size=(1000, 500)).astype(np.float32)
-    B = np.random.randint(10, size=(500, 10)).astype(np.float32)
+    n_rows = 1000
+    n_mid = 500
+    n_cols = 10
+    A = np.random.randint(10, size=(n_rows, n_mid)).astype(np.float32)
+    B = np.random.randint(10, size=(n_mid, n_cols)).astype(np.float32)
 
     # List of methods to compare
-    methods = [py_mat_mult, cython_mat_mult, cython_matrix_multiplication, np.dot]
-    method_names = ["Py loops", "Cython", "C code", "numpy"]
+    methods = [py_mat_mult, cython_slow_mat_mult, cython_mat_mult, c_mat_mult, np.dot]
+    method_names = ["Py loops", "Bad Cython", "Cython", "C code", "numpy"]
     # Note that cython_matrix_multiplication requires 2D np.ndarrays of floats with C contiguous format
 
     times = np.zeros((len(methods),))
@@ -58,7 +61,6 @@ if __name__ == '__main__':
     C_ref = np.dot(A,B)
 
     width = 10
-    prec = 2
     print("\nComparison of matrix multiplication with various methods")
     print(f"Method\t\t Time (ms)\t\tL2 diff with numpy")
     print("----------------------------------------------")
@@ -70,4 +72,4 @@ if __name__ == '__main__':
         C = method(A, B)
         times[ind] = 1000 * (time.time() - times[ind])
         error[ind] = np.sqrt(np.sum((C_ref - C) ** 2))
-        print(f"{method_names[ind]:{width}}\t{times[ind]:{width}.{prec}}\t{error[ind]:{width}.{prec}}")
+        print(f"{method_names[ind]:{width}}\t{times[ind]:{width}.2f}\t{error[ind]:{width}.2f}")
