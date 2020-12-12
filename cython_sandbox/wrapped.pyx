@@ -12,7 +12,7 @@ from matrices cimport matrix_float, matrix_multiplication
 
 def cython_matrix_multiplication(cnp.ndarray py_a, cnp.ndarray py_b):
     """
-    Cython function that multiplies two single precision float matrices
+    Cython function that calls c code to multiply two single precision float matrices
 
     Args:
         py_a(float): 2D numpy float array with C continuous order, the left matrix A.
@@ -60,6 +60,39 @@ def cython_matrix_multiplication(cnp.ndarray py_a, cnp.ndarray py_b):
 
     # Multiply matrices together by calling C subroutine
     matrix_multiplication(&A, &B, &C)
+
+    # Return cython ndarray
+    return py_c
+
+
+def cython_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
+    """
+    Args:
+        py_a:
+        py_b:
+
+    Returns:
+
+    """
+    # Get dimensions and check for compatibility
+    nrows_a, ncols_a = np.shape(py_a)
+    nrows_b, ncols_b = np.shape(py_b)
+
+    if ncols_a != nrows_b:
+        raise AttributeError("Matrix shapes are not compatible")
+
+    # Set output matrix shape
+    nrows_c = nrows_a
+    ncols_c = ncols_b
+    n_mults = ncols_a
+
+    # Allocate space and then loop to do the multiplication
+    cdef cnp.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a, ncols_b), dtype=ctypes.c_float)
+    for i in range(nrows_c):
+        for j in range(ncols_c):
+            py_c[i,j] = 0
+            for k in range(n_mults):
+                py_c[i,j] += py_a[i, k] * py_b[k, j]
 
     # Return cython ndarray
     return py_c
