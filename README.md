@@ -70,8 +70,17 @@ After successfully installing the packages, you can run a demo that exercises th
 
 ``python demo/demo.py``
 
-This calculates the product of two matrices using the resulting python function, 
-compares the result to the product computed using a standard ``numpy`` function, and prints out the results.
+This calculates the product of two matrices in several different ways in order to demonstrate the difference
+in run time.   These ways include 
+
+    1. using loops in python, 
+    2. using loops in cython without variable declaration,
+    3. using loops in cython with variable declaration, 
+    4. using cython to call c code, and 
+    5. using a standard ``numpy`` function.  
+
+The execution times are displayed along with a verification that the results of all these methods
+agree.  The slow methods can be skipped by setting include_slow to False near the beginning of the demo script.  
 
 
 # Multi-Threaded OpenMP Installation

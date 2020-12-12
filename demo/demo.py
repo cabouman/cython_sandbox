@@ -15,6 +15,10 @@ Note that all computations are done using 32-bit single precision floats.
     
 The page http://nealhughes.net/cython1/ also has a nice description about how to get good performance with cython.
 See also https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html     
+
+In a terminal in the main cython-sandbox directory, invoke ``cython wrapped.pyx -a``
+This will create a file ``wrapped.html`` in the same directory as ``wrapped.pyx``
+Open the html file in a browser to to identify which lines in ``wrapped.pyx`` expand to many lines of c code.  
 """
 
 
@@ -55,8 +59,14 @@ if __name__ == '__main__':
     B = np.random.randint(10, size=(n_mid, n_cols)).astype(np.float32)
 
     # List of methods to compare
-    methods = [py_mat_mult, cython_slow_mat_mult, cython_mat_mult, c_mat_mult, np.dot]
-    method_names = ["Py loops", "Bad Cython", "Cython", "C code", "numpy"]
+    include_slow = True
+    if include_slow:
+        methods = [py_mat_mult, cython_slow_mat_mult, cython_mat_mult, c_mat_mult, np.dot]
+        method_names = ["Py loops", "Bad Cython", "Cython", "C code", "numpy"]
+    else:
+        methods = [cython_mat_mult, c_mat_mult, np.dot]
+        method_names = ["Cython", "C code", "numpy"]
+
     # Note that cython_matrix_multiplication requires 2D np.ndarrays of floats with C contiguous format
 
     times = np.zeros((len(methods),))
