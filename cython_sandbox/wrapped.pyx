@@ -74,23 +74,23 @@ def c_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
     return py_c
 
 
-def cython_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
+def cython_mat_mult(float[:,:] cy_a, float[:,:] cy_b):
     """
     Cython function to multiply two numpy matrices using fairly optimized cython.
 
     Args:
-        py_a(float): 2D numpy array, the left matrix A.
-        py_b(float): 2D numpy array, the right matrix B.
+        cy_a(float): 2D numpy array, the left matrix A.
+        cy_b(float): 2D numpy array, the right matrix B.
 
     Return:
         py_c: 2D numpy array that is the product of A and B.
     """
     # Get dimensions and check for compatibility - note that the variable types are declared here.
-    cdef int nrows_a = np.shape(py_a)[0]
-    cdef int ncols_a = np.shape(py_a)[1]
+    cdef int nrows_a = cy_a.shape[0]
+    cdef int ncols_a = cy_a.shape[1]
 
-    cdef int nrows_b = np.shape(py_b)[0]
-    cdef int ncols_b = np.shape(py_b)[1]
+    cdef int nrows_b = cy_b.shape[0]
+    cdef int ncols_b = cy_b.shape[1]
 
     if ncols_a != nrows_b:
         raise AttributeError("Matrix shapes are not compatible")
@@ -102,9 +102,9 @@ def cython_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
     cdef int i, j, k
 
     # Allocate space and then loop to do the multiplication
-    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_a = py_a
-    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_b = py_b
-    cdef cnp.ndarray[float, ndim=2, mode="c"] cy_c = np.empty((nrows_a, ncols_b), dtype=ctypes.c_float)
+    py_c = np.empty((nrows_a, ncols_b), dtype=np.float32)
+
+    cdef float[:,::1] cy_c = py_c
     for i in range(nrows_c):
         for j in range(ncols_c):
             cy_c[i,j] = 0
@@ -112,7 +112,7 @@ def cython_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
                 cy_c[i,j] += cy_a[i, k] * cy_b[k, j]
 
     # Return cython ndarray
-    return cy_c
+    return py_c
 
 
 def cython_slow_mat_mult(cnp.ndarray py_a, cnp.ndarray py_b):
