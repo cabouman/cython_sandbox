@@ -4,7 +4,7 @@ cimport cython          # Import cython package
 cimport numpy as cnp    # Import specialized cython support for numpy
 
 # This imports functions and data types from the matrices.pxd file in the same directory
-from matrices cimport matrix_float, matrix_multiplication
+from matrices cimport flat_array_2D, interface_matrix_multiplication
 
 
 @cython.boundscheck(False)      # Deactivate bounds checking to increase speed
@@ -43,23 +43,23 @@ def cython_matrix_multiplication(cnp.ndarray py_a, cnp.ndarray py_b):
     cdef cnp.ndarray[float, ndim=2, mode="c"] py_c = np.empty((nrows_a,ncols_b), dtype=ctypes.c_float)
 
     # Declare and initialize 3 matrices
-    cdef matrix_float A     # Allocate C data structure matrix
-    A.mat_pt = &cy_a[0, 0]  # Assign pointer in C data structure
+    cdef flat_array_2D A     # Allocate C data structure matrix
+    A.data_pt = &cy_a[0, 0]  # Assign pointer in C data structure
     A.NRows = nrows_a       # Set value of NRows in C data structure
     A.NCols = ncols_a       # Set value of NCols in C data structure
 
-    cdef matrix_float B
-    B.mat_pt = &cy_b[0, 0]
+    cdef flat_array_2D B
+    B.data_pt = &cy_b[0, 0]
     B.NRows = nrows_b
     B.NCols = ncols_b
 
-    cdef matrix_float C
-    C.mat_pt = &py_c[0, 0]
+    cdef flat_array_2D C
+    C.data_pt = &py_c[0, 0]
     C.NRows = nrows_c
     C.NCols = ncols_c
 
     # Multiply matrices together by calling C subroutine
-    matrix_multiplication(&A, &B, &C)
+    interface_matrix_multiplication(&A, &B, &C)
 
     # Return cython ndarray
     return py_c

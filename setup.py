@@ -25,8 +25,8 @@ PACKAGES = [SRC_DIR]
 #                   extra_link_args=["-fopenmp"])
 
 # These settings work for MacOS, but still need to be tested for Linux and Windows
-c_extension = Extension(SRC_DIR + ".wrapped",
-                  [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
+c_extension = Extension(SRC_DIR+".wrapped",
+                  [SRC_DIR+"/src/interface.c", SRC_DIR+"/src/matrices.c", SRC_DIR+"/src/allocate.c", SRC_DIR+"/wrapped.pyx"],
                   libraries=[],
                   include_dirs=[np.get_include()])#,
                   #extra_compile_args=["-fopenmp"])#,

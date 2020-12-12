@@ -4,14 +4,13 @@ import ctypes
 from numpy import int32, float, double
 from numpy cimport int32_t, float_t, double_t
 
-# These cython declarations must be equivalent to C declarations and structures in src/matrices.h
-cdef extern from "src/matrices.h":
+# These cython declarations must be equivalent to C declarations and structures in src/interface.h
+cdef extern from "src/interface.h":
     # Define cython data structure
-    struct matrix_float:
+    struct flat_array_2D:
         int NRows;
         int NCols;
-        float *mat_pt;  # Pointer to 1D contiguous array used by python
-        float **mat;    # Pointer used for 2D array used by multialloc that is indexed by mat[NRows][NCols]
+        float *data_pt;  # Pointer to 1D contiguous array used by python
 
     # Define cython function
-    int matrix_multiplication( matrix_float *A, matrix_float *B, matrix_float *C );
+    int interface_matrix_multiplication( flat_array_2D *A, flat_array_2D *B, flat_array_2D *C );
