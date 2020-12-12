@@ -87,6 +87,7 @@ However, some special steps are necessary for ``clang``.
 If you are using ``clang``, then you will need to use the following modified command to install the conda environment:
 
 ``conda env create -f environment-clangomp.yml``
+
 ``conda activate cython_sandbox_clangomp``
 
 This creates a special conda environment that does not install the MKL support, which is redundant for the ``clang`` environment and interferes with the OMP libraries.
