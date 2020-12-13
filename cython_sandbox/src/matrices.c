@@ -19,8 +19,8 @@ int matrix_multiplication(struct matrix_float *A, struct matrix_float *B , struc
     array_2_multialloc_2Dfloat(C);
 
     /* Compute matrix product */
+    #pragma omp parallel for        // pragam command tells OpenMP compiler to parallelized the for loop
     for (i = 0; i < A->NRows ; i ++ )
-        #pragma omp parallel for
         for (j = 0; j < B->NCols ; j ++ ) {
             C->mat[i][j] = 0;
             for (k = 0; k < A->NCols ; k ++ )
