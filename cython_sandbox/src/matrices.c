@@ -2,11 +2,38 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef defined(OMP_COMP)
+#include <omp.h>
+#endif
+
 #include "allocate.h"
 #include "matrices.h"
 
+int matrix_multiplication(struct matrix_float *A, struct matrix_float *B , struct matrix_float *C)
+{
+    int i, j, k;
 
-void array_2_multialloc_2D(struct Amatrix_float *A)
+    /* Convert 2D arrays from 1D python format to 2D multialloc format */
+    array_2_multialloc_2Dfloat(A);
+    array_2_multialloc_2Dfloat(B);
+    array_2_multialloc_2Dfloat(C);
+
+    /* Compute matrix product */
+    #pragma omp parallel for        // pragam command tells OpenMP compiler to parallelized the for loop
+    for (i = 0; i < A->NRows ; i ++ )
+        for (j = 0; j < B->NCols ; j ++ ) {
+            C->mat[i][j] = 0;
+            for (k = 0; k < A->NCols ; k ++ )
+                C->mat[i][j] += A->mat[i][k]*B->mat[k][j];
+        }
+
+    multialloc_2_array_2Dfloat(A);
+    multialloc_2_array_2Dfloat(B);
+    multialloc_2_array_2Dfloat(C);
+    return(0);
+}
+
+void array_2_multialloc_2Dfloat(struct matrix_float *A)
 {
     int i;
 
@@ -17,38 +44,7 @@ void array_2_multialloc_2D(struct Amatrix_float *A)
     }
 }
 
-
-void multialloc_2_array_2D(struct Amatrix_float *A)
+void multialloc_2_array_2Dfloat(struct matrix_float *A)
 {
     free((void **)A->mat);
-}
-
-
-int matrix_multiplication(struct Amatrix_float *A, struct Amatrix_float *B , struct Amatrix_float *C)
-{
-    int i, j, k;
-
-    /* Convert 2D arrays from 1D python format to 2D multialloc format */
-    array_2_multialloc_2D(A);
-    array_2_multialloc_2D(B);
-    array_2_multialloc_2D(C);
-
-    /* Check that matrix shapes are correct */
-    if (A->NCols != B->NRows) {
-        printf("Number of columns in matrix A(%d) should equal to number of rows in matrix B(%d).\n", A->NCols, B->NRows);
-        return(-1);
-    }
-
-    /* Compute matrix product */
-    for (i = 0; i < A->NRows ; i ++ )
-        for (j = 0; j < B->NCols ; j ++ ) {
-            C->mat[i][j] = 0;
-            for (k = 0; k < A->NCols ; k ++ )
-                C->mat[i][j] += A->mat[i][k]*B->mat[k][j];
-        }
-
-    multialloc_2_array_2D(A);
-    multialloc_2_array_2D(B);
-    multialloc_2_array_2D(C);
-    return(0);
 }
