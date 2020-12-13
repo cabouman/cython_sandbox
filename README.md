@@ -4,12 +4,8 @@ This repository contains a simple example of how to use cython to create a pytho
 This simple example can be used as a template for building complex python interfaces to existing C libraries.
 See [link](https://suzyahyah.github.io/cython/programming/2018/12/01/Gotchas-in-Cython.html) for more information on cython.
 
-For the standard single threaded C code go [here](https://github.com/cabouman/cython_sandbox).
-But if you would like to use the multi-threaded C-code with the OpenMP libraries, then go [here](https://github.com/cabouman/cython_sandbox/tree/openmp).
 
-# Single Threaded Installation
-
-Obtain the single-threaded version of the cython_sandbox from [here](https://github.com/cabouman/cython_sandbox).
+# Installation
 
 These installation instructions assume that you have access to a command line interface to your computer 
 using a bash or other standard terminal.
@@ -85,28 +81,10 @@ agree.  The slow methods can be skipped by setting include_slow to False near th
 
 # Multi-Threaded OpenMP Installation
 
-Obtain the multi-threaded version of the cython_sandbox from [here](https://github.com/cabouman/cython_sandbox/tree/openmp).
-This supports the use of the OpenMP libraries and can use multiple cores in your computer in parallel.
+In order to use the OpemMP libraries, you will need to use the ``gcc`` compiler which is bundled with the OpenMP.
+The ``gcc`` compiler can be install on OSX with the homebrew package manager located [here](https://brew.sh). 
+If you install ``gcc`` make sure the command ``gcc`` points to ``/usr/local/bin/gcc-10`` rather pointing to the ``clang`` compiler located at ``/usr/bin/gcc``.
 
-For ``gcc`` most things are similar as in the single-threaded version.
-However, some special steps are necessary for ``clang``.
+Once ``gcc`` is installed, you can compile the OpenMP version using the command
 
-**1. Create Conda Environment:**
-
-If you are using ``clang``, then you will need to use the following modified command to install the conda environment:
-
-``conda env create -f environment-clangomp.yml``
-
-``conda activate cython_sandbox_clangomp``
-
-This creates a special conda environment that does not install the MKL support, which is redundant for the ``clang`` environment and interferes with the OMP libraries.
-See item 24 [here](https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial) for details.
-
-
-**2. Compile Cython Code**
-
-For Mac OSX you will need to install OpenMP libraries.
-You can obtain this libraries from [here](https://mac.r-project.org/openmp/).
-Once the OMP libraries are installed, you should be able to compile with the same command:
-
-``CC=clang pip install .``
+``OMPCOMP=1 CC=clang pip install .``
