@@ -37,7 +37,8 @@ if (os.environ.get('CC') == 'icc') and (os.environ.get('OMPCOMP') !='1'):
                       [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                       libraries=[],
                       include_dirs=[np.get_include()],
-                      extra_compile_args=["-DICC -qopenmp","-no-prec-div -restrict -ipo -inline-calloc -qopt-calloc -no-ansi-alias","-xCORE-AVX2"])
+                      extra_compile_args=["-DICC","-qopenmp","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"])
 
 # OpenMP gcc compile: tested for MacOS and Linux
 if (os.environ.get('CC') =='gcc') and (os.environ.get('OMPCOMP') =='1'):
