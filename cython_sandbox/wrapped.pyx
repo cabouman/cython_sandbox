@@ -2,6 +2,7 @@ import numpy as np
 import ctypes           # Import python package required to use cython
 cimport cython          # Import cython package
 cimport numpy as cnp    # Import specialized cython support for numpy
+from cython.parallel import prange  # Import parallel version of range - see https://docs.cython.org/en/latest/src/userguide/parallelism.html
 
 """ 
 This file contains 3 cython functions for matrix multiplication.
@@ -104,8 +105,11 @@ def cython_mat_mult(float[:,:] cy_a, float[:,:] cy_b):
     # Allocate space and then loop to do the multiplication
     py_c = np.empty((nrows_a, ncols_b), dtype=np.float32)
 
+    # For the parallel loop, see
+    # https://docs.cython.org/en/latest/src/userguide/parallelism.html
+    # and https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html
     cdef float[:,::1] cy_c = py_c
-    for i in range(nrows_c):
+    for i in prange(nrows_c, nogil=True):  # Do parallel for loop without global lock
         for j in range(ncols_c):
             cy_c[i,j] = 0
             for k in range(n_mults):
