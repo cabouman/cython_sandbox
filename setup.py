@@ -28,9 +28,10 @@ PACKAGES = [SRC_DIR]
 c_extension = Extension(SRC_DIR + ".wrapped",
                   [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                   libraries=[],
-                  include_dirs=[np.get_include()])#,
-                  #extra_compile_args=["-fopenmp"])#,
-                  #extra_link_args=["-fopenmp","-liomp5","-lpthread","-L/opt/intel/lib"])
+                  include_dirs=[np.get_include()],
+                  extra_compile_args=["-fopenmp"],
+                  extra_link_args=["-fopenmp","-liomp5","-lpthread","-L/opt/intel/lib"])
+                  # For parallel cython (but not c), you can just use extra_link_args=["-fopenmp"])
 
 setup(install_requires=REQUIRES,
       packages=PACKAGES,
