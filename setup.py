@@ -31,7 +31,7 @@ if (os.environ.get('CC') == 'clang') and (os.environ.get('OMPCOMP') !='1'):
                       libraries=[],
                       include_dirs=[np.get_include()])
 
-# Single threaded clang compile; tested for MacOS and Linux
+# Single threaded icc compile; tested for MacOS and Linux
 if (os.environ.get('CC') == 'icc') and (os.environ.get('OMPCOMP') !='1'):
     c_extension = Extension(SRC_DIR + ".wrapped",
                       [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
@@ -53,7 +53,7 @@ if (os.environ.get('CC') =='gcc') and (os.environ.get('OMPCOMP') =='1'):
                       extra_link_args=["-lm","-fopenmp"]) 
 
 
-# OpenMP cc compile: tested for MacOS and Linux
+# OpenMP icc compile: tested for MacOS and Linux
 if (os.environ.get('CC') =='icc') and (os.environ.get('OMPCOMP') =='1'):
     c_extension = Extension(SRC_DIR + ".wrapped",
                       [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
