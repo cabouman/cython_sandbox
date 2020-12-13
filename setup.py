@@ -58,8 +58,10 @@ if (os.environ.get('CC') =='icc') and (os.environ.get('OMPCOMP') =='1'):
                       libraries=[],
                       include_dirs=[np.get_include()],
                       # for gcc-10 "-std=c11" can be added as a flag
-                      extra_compile_args=["-O3", "-fopenmp","-Wno-unknown-pragmas","-DOMP_COMP"],
-                      extra_link_args=["-lm","-fopenmp"])
+                      extra_compile_args=["-DICC","-qopenmp","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"],
+                      extra_link_args=["-lm","-DICC","-qopenmp","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"])
 
 setup(install_requires=REQUIRES,
       packages=PACKAGES,
