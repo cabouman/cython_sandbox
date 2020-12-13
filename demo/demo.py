@@ -5,9 +5,9 @@ import time
 """
 This is a simple demo of multiplication of two matrices using 
 
-    1. Loops in python
-    2. Naively coded cython without variable types
-    3. Cython with proper variable types
+    1. Loops in python (Py loops)
+    2. Naively coded cython without variable types (Bad Cython)
+    3. Cython with proper variable types (Cython)
     4. A cython wrapper of a C subroutine
     5. Numpy
 

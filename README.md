@@ -69,10 +69,10 @@ After successfully installing the packages, you can run a demo that exercises th
 This calculates the product of two matrices in several different ways in order to demonstrate the difference
 in run time.   These ways include 
 
-    1. using loops in python, 
-    2. using loops in cython without variable declaration,
-    3. using loops in cython with variable declaration, 
-    4. using cython to call c code, and 
+    1. using loops in python (Py loops), 
+    2. using loops in cython without variable declaration (Bad Cython),
+    3. using loops in cython with variable declaration (Cython), 
+    4. using cython to call C code (C code), and 
     5. using a standard ``numpy`` function.  
 
 The execution times are displayed along with a verification that the results of all these methods
