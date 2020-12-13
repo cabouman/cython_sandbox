@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <omp.h>
+
+#include <omp.h>
 
 #include "allocate.h"
 #include "matrices.h"
