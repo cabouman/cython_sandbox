@@ -85,7 +85,7 @@ agree.  The slow methods can be skipped by setting include_slow to False near th
 
 # Multi-Threaded OpenMP Installation
 
-In order to use the OpemMP libraries, you will need to use the ``gcc`` compiler which is bundled with the OpenMP.
+In order to use the OpemMP libraries, you will need to use the ``gcc`` or `icc` compilers which are both bundled with the OpenMP.
 The ``gcc`` compiler can be install on OSX with the homebrew package manager located [here](https://brew.sh). 
 If you install ``gcc`` make sure the command ``gcc`` points to ``/usr/local/bin/gcc-10`` rather pointing to the ``clang`` compiler located at ``/usr/bin/gcc``.
 
