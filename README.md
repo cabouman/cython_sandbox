@@ -87,4 +87,4 @@ If you install ``gcc`` make sure the command ``gcc`` points to ``/usr/local/bin/
 
 Once ``gcc`` is installed, you can compile the OpenMP version using the command
 
-``OMPCOMP=1 CC=clang pip install .``
+``OMPCOMP=1 CC=gcc pip install .``
