@@ -48,11 +48,15 @@ In order to compile and install the package, run the following command for the `
 
 ``CC=gcc pip install .``
 
-And the following command for the ``clang`` compiler:
+The following command for the ``clang`` compiler:
 
 ``CC=clang pip install .``
 
-These install commands temporarily set the ``CC`` environment variable for the duration of the installation 
+And the following command for the ``icc`` compiler:
+
+`LDSHARED="icc -shared" CC=icc pip install .`
+
+These install commands temporarily set the ``CC``(compile) and ``LDSHARED``(link) environment variables for the duration of the installation 
 and then use the ``setup.py`` script to compile and install the package.
 
 You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython_sandbox`` environment.
@@ -88,3 +92,7 @@ If you install ``gcc`` make sure the command ``gcc`` points to ``/usr/local/bin/
 Once ``gcc`` is installed, you can compile the OpenMP version using the command
 
 ``OMPCOMP=1 CC=gcc pip install .``
+
+Also, if you have ``icc`` compiler, you can compile the OpenMP version using the following command,
+
+``OMPCOMP=1 LDSHARED="icc -shared" CC=icc pip install .``

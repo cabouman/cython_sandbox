@@ -31,6 +31,17 @@ if (os.environ.get('CC') == 'clang') and (os.environ.get('OMPCOMP') !='1'):
                       libraries=[],
                       include_dirs=[np.get_include()])
 
+# Single threaded icc compile; tested for MacOS and Linux
+if (os.environ.get('CC') == 'icc') and (os.environ.get('OMPCOMP') !='1'):
+    c_extension = Extension(SRC_DIR + ".wrapped",
+                      [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
+                      libraries=[],
+                      include_dirs=[np.get_include()],
+                      extra_compile_args=["-DICC","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"],
+                      extra_link_args=["-DICC","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"])
+
 # OpenMP gcc compile: tested for MacOS and Linux
 if (os.environ.get('CC') =='gcc') and (os.environ.get('OMPCOMP') =='1'):
     c_extension = Extension(SRC_DIR + ".wrapped",
@@ -40,6 +51,19 @@ if (os.environ.get('CC') =='gcc') and (os.environ.get('OMPCOMP') =='1'):
                       # for gcc-10 "-std=c11" can be added as a flag
                       extra_compile_args=["-O3", "-fopenmp","-Wno-unknown-pragmas","-DOMP_COMP"],
                       extra_link_args=["-lm","-fopenmp"]) 
+
+
+# OpenMP icc compile: tested for MacOS and Linux
+if (os.environ.get('CC') =='icc') and (os.environ.get('OMPCOMP') =='1'):
+    c_extension = Extension(SRC_DIR + ".wrapped",
+                      [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
+                      libraries=[],
+                      include_dirs=[np.get_include()],
+                      # for gcc-10 "-std=c11" can be added as a flag
+                      extra_compile_args=["-DICC","-qopenmp","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"],
+                      extra_link_args=["-lm","-DICC","-qopenmp","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
+                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"])
 
 setup(install_requires=REQUIRES,
       packages=PACKAGES,
