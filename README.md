@@ -4,12 +4,8 @@ This repository contains a simple example of how to use cython to create a pytho
 This simple example can be used as a template for building complex python interfaces to existing C libraries.
 See [link](https://suzyahyah.github.io/cython/programming/2018/12/01/Gotchas-in-Cython.html) for more information on cython.
 
-For the standard single threaded C code go [here](https://github.com/cabouman/cython_sandbox).
-But if you would like to use the multi-threaded C-code with the OpenMP libraries, then go [here](https://github.com/cabouman/cython_sandbox/tree/openmp).
 
-# Single Threaded Installation
-
-Obtain the single-threaded version of the cython_sandbox from [here](https://github.com/cabouman/cython_sandbox).
+# Installation
 
 These installation instructions assume that you have access to a command line interface to your computer 
 using a bash or other standard terminal.
@@ -52,11 +48,15 @@ In order to compile and install the package, run the following command for the `
 
 ``CC=gcc pip install .``
 
-And the following command for the ``clang`` compiler:
+The following command for the ``clang`` compiler:
 
 ``CC=clang pip install .``
 
-These install commands temporarily set the ``CC`` environment variable for the duration of the installation 
+And the following command for the ``icc`` compiler:
+
+`LDSHARED="icc -shared" CC=icc pip install .`
+
+These install commands temporarily set the ``CC``(compile) and ``LDSHARED``(link) environment variables for the duration of the installation 
 and then use the ``setup.py`` script to compile and install the package.
 
 You can verify the installation by running ``pip list``, which should display a brief summary of the packages installed in the ``cython_sandbox`` environment.
@@ -73,10 +73,10 @@ After successfully installing the packages, you can run a demo that exercises th
 This calculates the product of two matrices in several different ways in order to demonstrate the difference
 in run time.   These ways include 
 
-    1. using loops in python, 
-    2. using loops in cython without variable declaration,
-    3. using loops in cython with variable declaration, 
-    4. using cython to call c code, and 
+    1. using loops in python (Py loops), 
+    2. using loops in cython without variable declaration (Bad Cython),
+    3. using loops in cython with variable declaration (Cython), 
+    4. using cython to call C code (C code), and 
     5. using a standard ``numpy`` function.  
 
 The execution times are displayed along with a verification that the results of all these methods
@@ -85,28 +85,17 @@ agree.  The slow methods can be skipped by setting include_slow to False near th
 
 # Multi-Threaded OpenMP Installation
 
-Obtain the multi-threaded version of the cython_sandbox from [here](https://github.com/cabouman/cython_sandbox/tree/openmp).
-This supports the use of the OpenMP libraries and can use multiple cores in your computer in parallel.
+In order to use the OpemMP libraries, you will need to use the ``gcc`` or `icc` compilers which are both bundled with the OpenMP.
+The ``gcc`` compiler can be install on OSX with the homebrew package manager located [here](https://brew.sh). 
+If you install ``gcc`` make sure the command ``gcc`` points to ``/usr/local/bin/gcc-10`` rather pointing to the ``clang`` compiler located at ``/usr/bin/gcc``.
 
-For ``gcc`` most things are similar as in the single-threaded version.
-However, some special steps are necessary for ``clang``.
+Once ``gcc`` is installed, you can compile the OpenMP version using the command
 
-**1. Create Conda Environment:**
+``OMPCOMP=1 CC=gcc pip install .``
 
-If you are using ``clang``, then you will need to use the following modified command to install the conda environment:
+For the ``icc`` compiler use the following command:
 
-``conda env create -f environment-clangomp.yml``
+``OMPCOMP=1 LDSHARED="icc -shared" CC=icc pip install .``
 
-``conda activate cython_sandbox_clangomp``
-
-This creates a special conda environment that does not install the MKL support, which is redundant for the ``clang`` environment and interferes with the OMP libraries.
-See item 24 [here](https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial) for details.
-
-
-**2. Compile Cython Code**
-
-For Mac OSX you will need to install OpenMP libraries.
-You can obtain this libraries from [here](https://mac.r-project.org/openmp/).
-Once the OMP libraries are installed, you should be able to compile with the same command:
-
-``CC=clang pip install .``
+See the following [link](https://software.intel.com/content/www/us/en/develop/articles/thread-parallelism-in-cython.html)
+for more details on using ``icc`` with cython.
