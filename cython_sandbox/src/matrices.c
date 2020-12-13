@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <omp.h>
+
+#ifndef defined(OMP_COMP)
+#include <omp.h>
+#endif
 
 #include "allocate.h"
 #include "matrices.h"
