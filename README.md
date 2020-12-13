@@ -93,6 +93,9 @@ Once ``gcc`` is installed, you can compile the OpenMP version using the command
 
 ``OMPCOMP=1 CC=gcc pip install .``
 
-Also, if you have ``icc`` compiler, you can compile the OpenMP version using the following command,
+For the ``icc`` compiler use the following command:
 
 ``OMPCOMP=1 LDSHARED="icc -shared" CC=icc pip install .``
+
+See the following [link](https://software.intel.com/content/www/us/en/develop/articles/thread-parallelism-in-cython.html)
+for more details on using ``icc`` with cython.
