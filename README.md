@@ -32,7 +32,7 @@ Once you have installed Anaconda, then execute the following command from the ``
 This will create and activate a conda environment named ``cython_sandbox`` with the required dependencies.
 Before running the code, this ``cython_sandbox`` conda environment should always be activated.
 
-**2. Download and Compile Cython Code**
+**2. Download Cython Code**
 
 You will next need to download and compile the repository.
 To do this, download the repository by typing the following command into the terminal.
@@ -43,6 +43,8 @@ This will download a directory system containing the software.
 You should then move into the root directory of the repository using the following command.
 
 ``cd cython_sandbox``
+
+**3. Compile Cython Code**
 
 In order to compile and install the package, run the following command for the ``gcc`` compiler:
 
@@ -64,7 +66,7 @@ Now you will be able to use the ``cython_sandbox`` python commands from any dire
 
 ``import cython_sandbox``
 
-**3. Run Demo**
+**4. Run Demo**
 
 After successfully installing the packages, you can run a demo that exercises the package using the command
 
