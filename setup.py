@@ -18,32 +18,16 @@ SRC_DIR = "cython_sandbox"
 PACKAGES = [SRC_DIR]
 
 # Single threaded gcc compile; tested for MacOS and Linux
-if (os.environ.get('CC') == 'gcc') and (os.environ.get('OMPCOMP') !='1'):
-    c_extension = Extension(SRC_DIR + ".wrapped",
-                      [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
-                      libraries=[],
-                      include_dirs=[np.get_include()])
 
 # Single threaded clang compile; tested for MacOS and Linux
-if (os.environ.get('CC') == 'clang') and (os.environ.get('OMPCOMP') !='1'):
+if os.environ.get('CC') == 'clang':
     c_extension = Extension(SRC_DIR + ".wrapped",
                       [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                       libraries=[],
                       include_dirs=[np.get_include()])
 
-# Single threaded icc compile; tested for MacOS and Linux
-if (os.environ.get('CC') == 'icc') and (os.environ.get('OMPCOMP') !='1'):
-    c_extension = Extension(SRC_DIR + ".wrapped",
-                      [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
-                      libraries=[],
-                      include_dirs=[np.get_include()],
-                      extra_compile_args=["-DICC","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
-                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"],
-                      extra_link_args=["-DICC","-no-prec-div", "-restrict" ,"-ipo","-inline-calloc",
-                                          "-qopt-calloc","-no-ansi-alias","-xCORE-AVX2"])
-
 # OpenMP gcc compile: tested for MacOS and Linux
-if (os.environ.get('CC') =='gcc') and (os.environ.get('OMPCOMP') =='1'):
+if os.environ.get('CC') =='gcc':
     c_extension = Extension(SRC_DIR + ".wrapped",
                       [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                       libraries=[],
@@ -54,7 +38,7 @@ if (os.environ.get('CC') =='gcc') and (os.environ.get('OMPCOMP') =='1'):
 
 
 # OpenMP icc compile: tested for MacOS and Linux
-if (os.environ.get('CC') =='icc') and (os.environ.get('OMPCOMP') =='1'):
+if os.environ.get('CC') =='icc':
     c_extension = Extension(SRC_DIR + ".wrapped",
                       [SRC_DIR + "/src/matrices.c",SRC_DIR + "/src/allocate.c", SRC_DIR + "/wrapped.pyx"],
                       libraries=[],

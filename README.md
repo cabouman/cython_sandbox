@@ -12,8 +12,8 @@ using a bash or other standard terminal.
 This interface is standard in Linux, Unix (i.e., Mac OSX), but will need to be installed for Windows environments.
 
 You will also need a compiler, such as ``gcc``, ``clang`` available on Mac OSX, or the Intel ``icc`` compiler.
-The ``gcc`` compiler is perhaps the most widely available, but ``clang`` is the default Mac OSX compiler.
-The both ``Xcode`` and ``Command Line Tools for Xcode`` are available from [here](https://developer.apple.com/download/more/)
+We recommend either ``gcc`` or ``icc`` because they both support the OpenMP libraries required for fully utilizing multicore systems.
+However, ``clang`` also works with single threaded compilation. 
 
 **1. Create Conda Environment:**
 
@@ -32,7 +32,7 @@ Once you have installed Anaconda, then execute the following command from the ``
 This will create and activate a conda environment named ``cython_sandbox`` with the required dependencies.
 Before running the code, this ``cython_sandbox`` conda environment should always be activated.
 
-**2. Download and Compile Cython Code**
+**2. Download Cython Code**
 
 You will next need to download and compile the repository.
 To do this, download the repository by typing the following command into the terminal.
@@ -44,17 +44,19 @@ You should then move into the root directory of the repository using the followi
 
 ``cd cython_sandbox``
 
+**3. Compile Cython Code**
+
 In order to compile and install the package, run the following command for the ``gcc`` compiler:
 
 ``CC=gcc pip install .``
 
-The following command for the ``clang`` compiler:
-
-``CC=clang pip install .``
-
 And the following command for the ``icc`` compiler:
 
 `LDSHARED="icc -shared" CC=icc pip install .`
+
+The following command for the ``clang`` compiler:
+
+``CC=clang pip install .``
 
 These install commands temporarily set the ``CC``(compile) and ``LDSHARED``(link) environment variables for the duration of the installation 
 and then use the ``setup.py`` script to compile and install the package.
@@ -64,7 +66,7 @@ Now you will be able to use the ``cython_sandbox`` python commands from any dire
 
 ``import cython_sandbox``
 
-**3. Run Demo**
+**4. Run Demo**
 
 After successfully installing the packages, you can run a demo that exercises the package using the command
 
@@ -80,22 +82,18 @@ in run time.   These ways include
     5. using a standard ``numpy`` function.  
 
 The execution times are displayed along with a verification that the results of all these methods
-agree.  The slow methods can be skipped by setting include_slow to False near the beginning of the demo script.  
+agree.  The slow methods can be skipped by setting include_slow to False near the beginning of the demo script.
+Note that when compiled with ``gcc`` or ``icc``, the C code version will use multiple processors.  
 
 
-# Multi-Threaded OpenMP Installation
+# Installing C Compilers
 
-In order to use the OpemMP libraries, you will need to use the ``gcc`` or `icc` compilers which are both bundled with the OpenMP.
-The ``gcc`` compiler can be install on OSX with the homebrew package manager located [here](https://brew.sh). 
-If you install ``gcc`` make sure the command ``gcc`` points to ``/usr/local/bin/gcc-10`` rather pointing to the ``clang`` compiler located at ``/usr/bin/gcc``.
+The ``gcc`` compiler is perhaps the most widely available and is the default compiler available on Linux.
+The ``gcc`` compiler can also be install on OSX with the homebrew package manager located [here](https://brew.sh). 
 
-Once ``gcc`` is installed, you can compile the OpenMP version using the command
+To obtain the ``clang`` compiler, you will need to install both ``Xcode`` and ``Command Line Tools for Xcode`` that are available from [here](https://developer.apple.com/download/more/).
 
-``OMPCOMP=1 CC=gcc pip install .``
-
-For the ``icc`` compiler use the following command:
-
-``OMPCOMP=1 LDSHARED="icc -shared" CC=icc pip install .``
+If you install ``gcc`` on OSX make sure the command ``gcc`` points to ``/usr/local/bin/gcc-10`` rather pointing to the ``clang`` compiler located at ``/usr/bin/gcc``.
 
 See the following [link](https://software.intel.com/content/www/us/en/develop/articles/thread-parallelism-in-cython.html)
 for more details on using ``icc`` with cython.
