@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+// omp.h might be needed for some OpenMP function typing,
+// but it isn't needed in this program, so we're leaving it out for simplicity.
+//#include <omp.h>
+
 #include "allocate.h"
 #include "matrices.h"
 
