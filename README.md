@@ -15,27 +15,9 @@ You will also need a compiler, such as ``gcc``, ``clang`` available on Mac OSX, 
 We recommend either ``gcc`` or ``icc`` because they both support the OpenMP libraries required for fully utilizing multicore systems.
 However, ``clang`` also works with single threaded compilation. 
 
-**1. Create Conda Environment:**
+**1. Download Cython Code**
 
-You will first need to install Anaconda and create a conda environment.
-You can get Anaconda from [here](https://www.anaconda.com/products/individual), and here are installation instructions for the
-[Mac OSX](https://problemsolvingwithpython.com/01-Orientation/01.04-Installing-Anaconda-on-MacOS/), 
-[Linux](https://problemsolvingwithpython.com/01-Orientation/01.05-Installing-Anaconda-on-Linux/), and 
-[Windows](https://problemsolvingwithpython.com/01-Orientation/01.03-Installing-Anaconda-on-Windows/).
-
-Once you have installed Anaconda, then execute the following command from the ``cython_sandbox`` directory:
-
-``conda env create -f environment.yml``
-
-``conda activate cython_sandbox``
-
-This will create and activate a conda environment named ``cython_sandbox`` with the required dependencies.
-Before running the code, this ``cython_sandbox`` conda environment should always be activated.
-
-**2. Download Cython Code**
-
-You will next need to download and compile the repository.
-To do this, download the repository by typing the following command into the terminal.
+Download the repository by typing the following command into the terminal.
 
 ``git clone https://github.com/cabouman/cython_sandbox.git``
 
@@ -44,9 +26,27 @@ You should then move into the root directory of the repository using the followi
 
 ``cd cython_sandbox``
 
+**2. Create Conda Environment:**
+
+If you don't have Anaconda, you will first need to install it. 
+You can get Anaconda from [here](https://www.anaconda.com/products/individual), and here are installation instructions for the
+[Mac OSX](https://problemsolvingwithpython.com/01-Orientation/01.04-Installing-Anaconda-on-MacOS/), 
+[Linux](https://problemsolvingwithpython.com/01-Orientation/01.05-Installing-Anaconda-on-Linux/), and 
+[Windows](https://problemsolvingwithpython.com/01-Orientation/01.03-Installing-Anaconda-on-Windows/).
+
+Once you have installed Anaconda, then execute the following terminal command from the ``cython_sandbox`` directory:
+
+``conda env create -f environment.yml``
+
+``conda activate cython_sandbox``
+
+This will create and activate a conda environment named ``cython_sandbox`` with the required dependencies.
+Before running the code, this ``cython_sandbox`` conda environment should always be activated.
+
+
 **3. Compile Cython Code**
 
-In order to compile and install the package, run the following command for the ``gcc`` compiler:
+In order to compile and install the package, run the following terminal command for the ``gcc`` compiler:
 
 ``CC=gcc pip install .``
 
