@@ -85,8 +85,17 @@ The execution times are displayed along with a verification that the results of 
 agree.  The slow methods can be skipped by setting include_slow to False near the beginning of the demo script.
 Note that when compiled with ``gcc`` or ``icc``, the C code version will use multiple processors.  
 
+# Additional Issues
 
-# Installing C Compilers
+## One-line Installation
+
+One-line installation can be done by running
+
+``CC=gcc pip install git+https://github.com/cabouman/cython_sandbox``
+
+This internally clones the repository and installes the python package. No separate cloning is required.
+
+## Installing C Compilers
 
 The ``gcc`` compiler is perhaps the most widely available and is the default compiler available on Linux.
 The ``gcc`` compiler can also be install on OSX with the homebrew package manager located [here](https://brew.sh). 
